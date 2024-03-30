@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.Arm.Arm;
 import frc.robot.Shooter.ShooterContainer;
 
 public class Robot extends TimedRobot {
@@ -15,11 +15,13 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   public ShooterContainer m_operatorController;
+  public Arm ArmOperatorController;
 
   @Override
   public void robotInit() {
-    m_robotContainer = new RobotContainer();
-    m_operatorController = new ShooterContainer();
+    m_robotContainer = new RobotContainer(); // Initalize Xbox controller for swerve drives
+    m_operatorController = new ShooterContainer(); // Initalize Xbox controller for for shooter
+    ArmOperatorController = new Arm(); // Initalize Xbox controller for arms
   }
 
   @Override
@@ -28,13 +30,13 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {/* place commands here */}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {/* place commands here */}
 
   @Override
-  public void disabledExit() {}
+  public void disabledExit() {/* place commands here */}
 
   @Override
   public void autonomousInit() {

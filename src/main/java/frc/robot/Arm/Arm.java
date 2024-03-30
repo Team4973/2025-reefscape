@@ -1,4 +1,4 @@
-/*  
+
 package frc.robot.Arm;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,59 +17,59 @@ import com.ctre.phoenix6.Utils;
 
 public class Arm {
 
-    // use 1 xbox controller
-    //public final CommandXboxController  = new CommandXboxController(0);
+  public CommandXboxController ArmOperatorController =
+      new CommandXboxController(0);
 
-    private final TalonFX lClimber = new TalonFX(31); // left climber 
-    private final TalonFX rClimber = new TalonFX(30); // right climber
 
+    public final TalonFX lClimber = new TalonFX(31); // left climber 
+    public final TalonFX rClimber = new TalonFX(30); // right climber
     //
     
     public void ClimbWithFalcon() {
 
-    lJoystick.rightTrigger().onTrue( // move right motor clockwise on right trigger
+    ArmOperatorController.rightTrigger().onTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
         rClimber.set(0.5);
       })
     );
 
-    lJoystick.rightTrigger().onFalse( // stop when not in use
+    ArmOperatorController.rightTrigger().onFalse( // stop when not in use
       new InstantCommand(() -> {
         rClimber.set(0);
       })
     );
 
-    lJoystick.rightBumper().onTrue( // move right motor counter-clockwise on right bumper
+    ArmOperatorController.rightBumper().onTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
         rClimber.set(-0.5);
       })
     );
 
-    lJoystick.rightBumper().onFalse( // stop when not in use
+    ArmOperatorController.rightBumper().onFalse( // stop when not in use
       new InstantCommand(() -> {
         rClimber.set(0);
       })
     );
 
-    lJoystick.leftTrigger().onTrue( // move left motor clockwise on right trigger
+    ArmOperatorController.leftTrigger().onTrue( // move left motor clockwise on right trigger
       new InstantCommand(() -> {
         lClimber.set(0.5);
       })
     );
 
-    lJoystick.leftTrigger().onFalse( // stop motor when not in use
+    ArmOperatorController.leftTrigger().onFalse( // stop motor when not in use
       new InstantCommand(() -> {
         lClimber.set(0);
       })
     );
 
-    lJoystick.leftBumper().onTrue( // move left motor counter-clockwise on right bumper
+    ArmOperatorController.leftBumper().onTrue( // move left motor counter-clockwise on right bumper
       new InstantCommand(() -> {
         lClimber.set(-0.5);
       })
     );
 
-    lJoystick.leftBumper().onFalse( // stop motor when not in use
+    ArmOperatorController.leftBumper().onFalse( // stop motor when not in use
       new InstantCommand(() -> {
         lClimber.set(0);
       })
@@ -81,4 +81,3 @@ public class Arm {
 
 }
 
-*/

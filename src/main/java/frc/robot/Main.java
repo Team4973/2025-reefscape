@@ -5,7 +5,7 @@
 package frc.robot;
 
 /* CONTRIBUTORS: 
-Students:
+Team Members (Gator Gears 4973):
  Aidan Tarte
  Cosimo Aho
 Coaches:
@@ -13,9 +13,7 @@ Coaches:
  Rob Tarte
  Nathan Lie
 
-
-
- Created by members of Gator Gears, Team 4973 with some help from generated code.
+ Created by members of FRC Team Gator Gears (4973) with some help from generated code.
 */
 
 

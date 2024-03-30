@@ -36,8 +36,9 @@ import frc.robot.generated.TunerConstants;
 
 //import frc.robot.Arm.Arm;
 
-
 public class RobotContainer {
+  
+  public final CommandXboxController lJoystick = new CommandXboxController(0);
   
   private final AHRS navx;
  
@@ -52,7 +53,7 @@ public class RobotContainer {
   private double MaxAngularRate = 1.25/kAAngleDiv * Math.PI; // 3/4 of a rotation per second max angular velocity
 
   /* Setting up bindings for necessary control of the swerve drive platform */
-  public final CommandXboxController lJoystick = new CommandXboxController(0); // My joystick
+   // My joystick
   //private final CommandXboxController Joystick_2 = new CommandXboxController(1); // creates another instance of joystick for when two are plugged in.
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
 
