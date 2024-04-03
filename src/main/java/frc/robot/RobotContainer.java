@@ -14,10 +14,6 @@ import frc.robot.Shooter.ShooterConstants;
 import frc.robot.Shooter.ShooterConstants.LauncherConstants;
 import static frc.robot.Shooter.ShooterConstants.LauncherConstants.kLaunchFeederSpeed;
 
-/* Gyroscope */
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SerialPort;
-
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
@@ -44,7 +40,6 @@ public class RobotContainer {
   
   public final CommandXboxController lJoystick = new CommandXboxController(0);
   
-  private final AHRS navx;
  
     
   private final Joystick Rdriver = new Joystick(1);
@@ -57,8 +52,7 @@ public class RobotContainer {
   private double MaxAngularRate = 1.25/kAAngleDiv * Math.PI; // 3/4 of a rotation per second max angular velocity
 
   /* Setting up bindings for necessary control of the swerve drive platform */
-  public final CommandXboxController lJoystick = new CommandXboxController(0); // My joystick
-  //private final CommandXboxController Joystick_2 = new CommandXboxController(1); // creates another instance of joystick for when two are plugged in.
+  
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
 
   private Command runAuto1 = drivetrain.getAutoPath("middle path");
@@ -181,7 +175,6 @@ public class RobotContainer {
 
 
   public RobotContainer() {
-    navx = new AHRS(SerialPort.Port.kMXP);
     configureBindings();
   }
  
@@ -194,11 +187,5 @@ public class RobotContainer {
 
   public void teleopPeriodic()
   {
-    double roll = navx.getRoll();
-    System.out.println("roll = "+ roll);
-      double yaw = navx.getYaw();
-    System.out.println("yaw = "+ yaw);
-      double pitch = navx.getPitch();
-    System.out.println("pitch = "+ pitch);
   }
 }
