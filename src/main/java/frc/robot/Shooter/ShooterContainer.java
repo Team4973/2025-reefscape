@@ -57,7 +57,7 @@ public class ShooterContainer {
 
     // Set up a binding to run the intake command while the operator is pressing and holding the
     // left Bumper
-    m_operatorController.leftBumper().whileTrue(m_launcher.getIntakeCommand() /*System.out.println("Intake Command Recived" ) */);
+    m_operatorController.y().whileTrue(m_launcher.getIntakeCommand());
   }
 
   /**
