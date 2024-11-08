@@ -54,8 +54,7 @@ public class TunerConstants {
     private static final boolean kInvertRightSide = true;
 
     private static final String kCANbusName = "";
-    // private static final int kPigeonId = ;
-
+    private static final int kPigeonId = 1;
 
     // These are only used for simulation
     private static final double kSteerInertia = 0.00001;
@@ -65,7 +64,7 @@ public class TunerConstants {
     private static final double kDriveFrictionVoltage = 0.25;
 
     private static final SwerveDrivetrainConstants DrivetrainConstants = new SwerveDrivetrainConstants()
-            // .withPigeon2Id(kPigeonId)
+            .withPigeon2Id(kPigeonId)
             .withCANbusName(kCANbusName);
 
     private static final SwerveModuleConstantsFactory ConstantCreator = new SwerveModuleConstantsFactory()

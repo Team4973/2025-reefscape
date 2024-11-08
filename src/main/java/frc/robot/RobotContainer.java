@@ -15,6 +15,7 @@ import frc.robot.Shooter.ShooterConstants.LauncherConstants;
 import static frc.robot.Shooter.ShooterConstants.LauncherConstants.kLaunchFeederSpeed;
 
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
@@ -40,7 +41,6 @@ public class RobotContainer {
   
   public final CommandXboxController lJoystick = new CommandXboxController(0);
   
- 
     
   private final Joystick Rdriver = new Joystick(1);
   private final Joystick Ldriver = new Joystick(0); 
@@ -55,9 +55,9 @@ public class RobotContainer {
   
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
 
-  private Command runAuto1 = drivetrain.getAutoPath("middle path");
+  private Command runAuto1 = drivetrain.getAutoPath("demo path");
   private Command runAuto2 = drivetrain.getAutoPath("right path");
-  private Command runAuto3 = drivetrain.getAutoPath("left path");
+  private Command runAuto3 = drivetrain.getAutoPath("left path"); 
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.25) // We use a 25% deadband with our Xbox controllers
@@ -87,6 +87,10 @@ public class RobotContainer {
        // .applyRequest(() -> point.withModuleDirection(new Rotation2d(-lJoystick.getLeftY(), -lJoystick.getLeftX()))));
       lJoystick.x().whileTrue(drivetrain.applyRequest(() -> drive.withRotationalRate(MaxAngularRate)));
       lJoystick.b().whileTrue(drivetrain.applyRequest(() -> drive.withRotationalRate(MaxAngularRate * -1)));
+      lJoystick.a().whileTrue(new InstantCommand(() -> {
+        zeroPigeon();
+        System.out.println("pigeon rezeroed");
+      }));
 
       lJoystick.rightTrigger().onTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
@@ -176,13 +180,20 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
+    
+
+  }
+
+  public void zeroPigeon() {
+    final Pigeon2 pigeon = drivetrain.getPigeon2();
+    pigeon.reset();
   }
  
   public Command getAutonomousCommand() {
-    // return runAuto1;
-    SwerveRequest driveForward = new SwerveRequest.RobotCentric().withVelocityX(.5);
+    return runAuto1;
+    //SwerveRequest driveForward = new SwerveRequest.RobotCentric().withVelocityX(.5);
 
-    return drivetrain.run(() -> drivetrain.setControl(driveForward));
+    //return drivetrain.run(() -> drivetrain.setControl(driveForward));
   }
 
   public void teleopPeriodic()
