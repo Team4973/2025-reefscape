@@ -24,6 +24,7 @@ public class PowerDistributionHub {
     public void getTotalCurrent() { // get current coming from battery
         double TotalCurrent = MainPowerDistributionHub.getTotalCurrent();
         SmartDashboard.putNumber("System Current", TotalCurrent);
+        System.out.println("Total Current" + TotalCurrent);
     }
 
     public void getIndividualCurrent() { // get current of each individual channel
