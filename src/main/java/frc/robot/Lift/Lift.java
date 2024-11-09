@@ -1,5 +1,5 @@
 
-package frc.robot.Arm;
+package frc.robot.Lift;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -15,13 +15,12 @@ import frc.robot.RobotContainer;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.Utils;
 
-public class Arm {
+public class Lift {
 
   public CommandXboxController ArmOperatorController =
       new CommandXboxController(0);
 
 
-    public final TalonFX lClimber = new TalonFX(31); // left climber 
     public final TalonFX rClimber = new TalonFX(30); // right climber
     //
     
@@ -29,7 +28,7 @@ public class Arm {
 
     ArmOperatorController.rightTrigger().onTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-        rClimber.set(0.5);
+        rClimber.set(-0.5);
       })
     );
 
@@ -41,7 +40,7 @@ public class Arm {
 
     ArmOperatorController.rightBumper().onTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        rClimber.set(-0.5);
+        rClimber.set(0.5);
       })
     );
 
@@ -50,31 +49,6 @@ public class Arm {
         rClimber.set(0);
       })
     );
-
-    ArmOperatorController.leftTrigger().onTrue( // move left motor clockwise on right trigger
-      new InstantCommand(() -> {
-        lClimber.set(0.5);
-      })
-    );
-
-    ArmOperatorController.leftTrigger().onFalse( // stop motor when not in use
-      new InstantCommand(() -> {
-        lClimber.set(0);
-      })
-    );
-
-    ArmOperatorController.leftBumper().onTrue( // move left motor counter-clockwise on right bumper
-      new InstantCommand(() -> {
-        lClimber.set(-0.5);
-      })
-    );
-
-    ArmOperatorController.leftBumper().onFalse( // stop motor when not in use
-      new InstantCommand(() -> {
-        lClimber.set(0);
-      })
-    );
-
     }
 
 
