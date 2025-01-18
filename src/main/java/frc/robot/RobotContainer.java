@@ -6,19 +6,11 @@
 
 package frc.robot;
 
-/* Load Shooter Code */
-import frc.robot.Shooter.ShooterContainer;
-import frc.robot.commands.LaunchNote;
-import frc.robot.commands.PrepareLaunch;
-import frc.robot.Shooter.ShooterConstants;
-import frc.robot.Shooter.ShooterConstants.LauncherConstants;
-import static frc.robot.Shooter.ShooterConstants.LauncherConstants.kLaunchFeederSpeed;
-
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.mechanisms.swerve.LegacySwerveRequest;
+import com.ctre.phoenix6.mechanisms.swerve.LegacySwerveModule.DriveRequestType;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -59,12 +51,12 @@ public class RobotContainer {
   private Command runAuto2 = drivetrain.getAutoPath("right path");
   private Command runAuto3 = drivetrain.getAutoPath("left path"); 
 
-  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+  private final LegacySwerveRequest.FieldCentric drive = new LegacySwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.25) // We use a 25% deadband with our Xbox controllers
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric
                                                                // driving in open loop
-  private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
-  private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+  private final LegacySwerveRequest.SwerveDriveBrake brake = new LegacySwerveRequest.SwerveDriveBrake();
+  private final LegacySwerveRequest.PointWheelsAt point = new LegacySwerveRequest.PointWheelsAt();
   private final Telemetry logger = new Telemetry(MaxSpeed);
 
   public static final double kDSpeedDiv =  1.2; // Value for controlling controller sensitivity

@@ -5,11 +5,11 @@
 package frc.robot;
 
 /* CONTRIBUTORS: 
-Team Members (Gator Gears 4973):
+Student Members (Gator Gears 4973):
+Slavik
  Aidan Tarte
  Cosimo Aho
-Coaches:
- Barry
+Mentors:
  Rob Tarte
  Nathan Lie
 
