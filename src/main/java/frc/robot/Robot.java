@@ -4,28 +4,17 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.DistributionHub.PowerDistributionHub;
-import frc.robot.Lift.Lift;
-import frc.robot.Shooter.ShooterContainer;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
-  public ShooterContainer m_operatorController;
-  public Lift ArmOperatorController;
-  public PowerDistributionHub PowerDistributionHub;
+  private final RobotContainer m_robotContainer;
 
-  @Override
-  public void robotInit() {
-    m_robotContainer = new RobotContainer(); // Initalize Xbox controller for swerve drives
-    m_operatorController = new ShooterContainer(); // Initalize Xbox controller for for shooter
-    ArmOperatorController = new Lift(); // Initalize Xbox controller for arms
-    PowerDistributionHub = new PowerDistributionHub();
+  public Robot() {
+    m_robotContainer = new RobotContainer();
   }
 
   @Override
@@ -34,13 +23,13 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {/* place commands here */}
+  public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {/* place commands here */}
+  public void disabledPeriodic() {}
 
   @Override
-  public void disabledExit() {/* place commands here */}
+  public void disabledExit() {}
 
   @Override
   public void autonomousInit() {
@@ -65,9 +54,7 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {
-    m_robotContainer.teleopPeriodic();
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void teleopExit() {}
