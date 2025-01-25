@@ -6,22 +6,31 @@ package frc.robot.Shooter;
 
 import static frc.robot.Shooter.ShooterConstants.LauncherConstants.*;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class CANLauncher extends SubsystemBase {
-  CANSparkMax m_launchWheel;
-  CANSparkMax m_feedWheel;
+  SparkMax m_launchWheel;
+  SparkMax m_feedWheel;
+  SparkMaxConfig m_launchWheelConfig;
+  SparkMaxConfig m_feedWheelConfig;
 
   /** Creates a new Launcher. */
   public CANLauncher() {
-    m_launchWheel = new CANSparkMax(kLauncherID, MotorType.kBrushless);
-    m_feedWheel = new CANSparkMax(kFeederID, MotorType.kBrushless);
+    m_launchWheel = new SparkMax(kLauncherID, MotorType.kBrushless);
+    m_feedWheel = new SparkMax(kFeederID, MotorType.kBrushless);
+    m_launchWheelConfig = new SparkMaxConfig();
+    m_feedWheelConfig = new SparkMaxConfig();
 
-    m_launchWheel.setSmartCurrentLimit(kLauncherCurrentLimit);
-    m_feedWheel.setSmartCurrentLimit(kFeedCurrentLimit);
+    m_launchWheelConfig.smartCurrentLimit(kLauncherCurrentLimit);
+    m_feedWheelConfig.smartCurrentLimit(kFeedCurrentLimit);
+
+    m_launchWheel.configure(m_launchWheelConfig, null, null);
+    m_feedWheel.configure(m_feedWheelConfig, null, null);
   }
 
   /**
