@@ -53,11 +53,14 @@ public class ShooterContainer {
             new PrepareLaunch(m_launcher)
                 .withTimeout(LauncherConstants.kLauncherDelay)
                 .andThen(new LaunchNote(m_launcher))
-                .handleInterrupt(() -> m_launcher.stop()));
+                .handleInterrupt(() -> m_launcher.stop())
+                );
+
 
     // Set up a binding to run the intake command while the operator is pressing and holding the
     // left Bumper
-    m_operatorController.leftBumper().whileTrue(m_launcher.getIntakeCommand());
+    m_operatorController.leftBumper().whileTrue(
+      m_launcher.getIntakeCommand());
   }
 
   /**

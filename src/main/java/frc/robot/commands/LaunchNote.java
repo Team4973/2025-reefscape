@@ -34,6 +34,7 @@ public class LaunchNote extends Command {
     // Set the wheels to launching speed
     m_launcher.setLaunchWheel(kLauncherSpeed);
     m_launcher.setFeedWheel(kLaunchFeederSpeed);
+    System.out.println("Shooter fired");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,6 +43,7 @@ public class LaunchNote extends Command {
     // There is nothing we need this command to do on each iteration. You could remove this method
     // and the default blank method
     // of the base class will run.
+    System.out.println("Shooter fired");
   }
 
   // Returns true when the command should end.
