@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
 
-    serial = new SerialPort(9600, Port.kMXP);
+    //serial = new SerialPort(9600, Port.kUSB);
 
     //SerialPort serial = new SerialPort(9600, SerialPort.Port.kMXP);
     
