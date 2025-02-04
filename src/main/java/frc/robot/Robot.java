@@ -8,24 +8,25 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import frc.robot.CoralShooter.CoralShooterContainer;
+import frc.robot.CoralShooter.CoralShooterConstants;
+
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
-import edu.wpi.first.wpilibj.Timer;
-
-import frc.robot.Shooter.ShooterContainer;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
-  //public final ShooterContainer m_operatorController;
+  public final CoralShooterContainer m_operatorController;
 
+  // initalize serial for Arduino LED subsystem communication 
   private SerialPort serial;
 
   public Robot() {
     
     m_robotContainer = new RobotContainer();
-    //m_operatorController = new ShooterContainer();
+    m_operatorController = new CoralShooterContainer();
   }
 
   @Override
@@ -60,7 +61,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
 
-    serial = new SerialPort(9600, Port.kMXP);
+    //serial = new SerialPort(9600, Port.kUSB);
 
     //SerialPort serial = new SerialPort(9600, SerialPort.Port.kMXP);
     
@@ -77,13 +78,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    int pattern = 2;
-    try {
-      serial.writeString("2\n");
-      System.out.println("Sent" + pattern);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    // int pattern = 2;
+    // try {
+    //   serial.writeString("2\n");
+    //   System.out.println("Sent" + pattern);
+    // } catch (Exception e) {
+    //   e.printStackTrace();
+    // }
   }
 
   @Override
