@@ -35,6 +35,7 @@ public class RobotContainer {
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
+    // Divisor that reduces max speed of the robot
     private final double kSpeedDiv = 4.0;
 
     public RobotContainer() {
