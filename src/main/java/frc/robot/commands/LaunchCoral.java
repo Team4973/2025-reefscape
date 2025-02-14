@@ -13,13 +13,13 @@ import frc.robot.CoralShooter.CANLauncher;
 /*This is an example of creating a command as a class. The base Command class provides a set of methods that your command
  * will override.
  */
-public class LaunchNote extends Command {
+public class LaunchCoral extends Command {
   //PWMLauncher m_launcher;
 
    CANLauncher m_launcher;
 
   /** Creates a new LaunchNote. */
-  public LaunchNote(CANLauncher launcher) {
+  public LaunchCoral(CANLauncher launcher) {
     // save the launcher system internally
     m_launcher = launcher;
 
