@@ -35,7 +35,7 @@ public class RobotContainer {
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-    private final double kSpeedDiv = 4.0;
+    private final double kSpeedDiv = 4.0; // 4.0 is our prefered speed for somewhat fast movements
 
     public RobotContainer() {
         configureBindings();

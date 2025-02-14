@@ -20,8 +20,6 @@ public class PrepareLaunch extends Command {
     // save the launcher system internally
     m_launcher = launcher;
 
-    System.out.println("got here");
-
     // indicate that this command requires the launcher system
     addRequirements(m_launcher);
   }
