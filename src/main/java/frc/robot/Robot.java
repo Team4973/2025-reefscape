@@ -55,16 +55,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    System.out.println("Got Here...");
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    System.out.println("...And Got Here!");
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
-      System.out.println("Not Null");
-    }
-    else {
-      System.out.println("Null");
     }
   }
 
@@ -76,6 +70,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+
+    m_robotContainer.kSpeedDiv = 4.0;
 
     //serial = new SerialPort(9600, Port.kUSB);
 
@@ -97,15 +93,15 @@ public class Robot extends TimedRobot {
     int pov = joystick.getPOV();
 
     if (pov == 0 && previousPOV != 0) {
-      m_robotContainer.kSpeedDiv -= 0.5;
+      m_robotContainer.kSpeedDiv -= 1.0; // subtract 1 from speed dvider for faster drive
       System.out.println("Speed Increased " + m_robotContainer.kSpeedDiv);
     } else if (pov == 90 && previousPOV != 90) {
-      
+      // currently unused
     } else if (pov == 180 && previousPOV != 180) {
-      m_robotContainer.kSpeedDiv += 0.5;
+      m_robotContainer.kSpeedDiv += 1.0; // add 1 to speed divider for slower drive 
       System.out.println("Speed Decreased " + m_robotContainer.kSpeedDiv);
     } else if (pov == 270 && previousPOV != 270) {
-      m_robotContainer.kSpeedDiv = 4.0;
+      m_robotContainer.kSpeedDiv = 4.0; // reset to default speed (4.0)
       System.out.println("Speed Set to Default " + m_robotContainer.kSpeedDiv);
     }
     previousPOV = pov;
