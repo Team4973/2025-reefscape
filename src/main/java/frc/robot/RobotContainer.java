@@ -31,11 +31,11 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final CommandXboxController joystick = new CommandXboxController(0);
+    public final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-    private final double kSpeedDiv = 4.0; // 4.0 is our prefered speed for somewhat fast movements
+    public double kSpeedDiv = 4.0; // 4.0 is our prefered speed for somewhat fast movements
 
     public RobotContainer() {
         configureBindings();

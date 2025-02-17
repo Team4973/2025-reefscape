@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.CoralShooter.CoralShooterContainer;
 import frc.robot.Limelight.Limelight;
 import frc.robot.CoralShooter.CoralShooterConstants;
@@ -15,12 +15,18 @@ import frc.robot.CoralShooter.CoralShooterConstants;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 
+import frc.robot.RobotContainer;
+
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
   public final Limelight limelight;
+
+  private int previousPOV = -1;
+
+  private final XboxController joystick = new XboxController(0); 
 
   // initalize serial for Arduino LED subsystem communication 
   private SerialPort serial;
@@ -82,15 +88,25 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    // int pattern = 2;
-    // try {
-    //   serial.writeString("2\n");
-    //   System.out.println("Sent" + pattern);
-    // } catch (Exception e) {
-    //   e.printStackTrace();
-    // }
+    int pov = joystick.getPOV();
+
+    if (pov == 0 && previousPOV != 0) {
+      m_robotContainer.kSpeedDiv -= 0.5;
+      System.out.println("Speed Increased " + m_robotContainer.kSpeedDiv);
+    } else if (pov == 90 && previousPOV != 90) {
+      
+    } else if (pov == 180 && previousPOV != 180) {
+      m_robotContainer.kSpeedDiv += 0.5;
+      System.out.println("Speed Decreased " + m_robotContainer.kSpeedDiv);
+    } else if (pov == 270 && previousPOV != 270) {
+      m_robotContainer.kSpeedDiv = 4.0;
+      System.out.println("Speed Set to Default " + m_robotContainer.kSpeedDiv);
+    }
+    previousPOV = pov;
+
     limelight.getLimelightValues();
   }
+
   @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
