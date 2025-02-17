@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.CoralShooter.CoralShooterContainer;
+import frc.robot.Limelight.Limelight;
 import frc.robot.CoralShooter.CoralShooterConstants;
 
 import edu.wpi.first.wpilibj.SerialPort;
@@ -19,6 +20,7 @@ public class Robot extends TimedRobot {
 
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
+  public final Limelight limelight;
 
   // initalize serial for Arduino LED subsystem communication 
   private SerialPort serial;
@@ -27,6 +29,8 @@ public class Robot extends TimedRobot {
     
     m_robotContainer = new RobotContainer();
     m_operatorController = new CoralShooterContainer();
+    limelight = new Limelight();
+
   }
 
   @Override
@@ -91,15 +95,8 @@ public class Robot extends TimedRobot {
     // } catch (Exception e) {
     //   e.printStackTrace();
     // }
+    limelight.getLimelightValues();
   }
-
-  @Override
-  public void teleopExit() {
-    if (serial != null) {
-      serial.close();
-  }
-  }
-
   @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();

@@ -11,7 +11,7 @@ import frc.robot.CoralShooter.Autos;
 import frc.robot.CoralShooter.CANLauncher;
 import frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants;
 import frc.robot.CoralShooter.CoralShooterConstants.OperatorConstants;
-import frc.robot.commands.LaunchNote;
+import frc.robot.commands.LaunchCoral;
 import frc.robot.commands.PrepareLaunch;
 /*import frc.robot.subsystems.PWMDrivetrain;
 import frc.robot.subsystems.PWMLauncher; */
@@ -51,7 +51,7 @@ public class CoralShooterContainer {
         .whileTrue(
             new PrepareLaunch(m_launcher)
                 .withTimeout(LauncherConstants.kLauncherDelay)
-                .andThen(new LaunchNote(m_launcher))
+                .andThen(new LaunchCoral(m_launcher))
                 .handleInterrupt(() -> m_launcher.stop())
                 
         );
