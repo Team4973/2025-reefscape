@@ -8,10 +8,11 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-
+import frc.robot.commands.climber;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
@@ -19,6 +20,8 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class RobotContainer {
+     
+    
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
@@ -33,7 +36,9 @@ public class RobotContainer {
 
     public final CommandXboxController joystick = new CommandXboxController(0);
 
+    private  climber cageClimber = new climber (joystick);
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    private Command runauto1 = drivetrain.getAutoPath("Test");
 
     public double kSpeedDiv = 4.0; // 4.0 is our prefered speed for somewhat fast movements
 
@@ -70,6 +75,13 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return Commands.print("No autonomous command configured");
+        //return Commands.print("No autonomous command configured");
+        return runauto1;
+        // SequentialCommandGroup auto_commands = new SequentialCommandGroup(
+        //     Commands.print("Got Here!"),
+        //     new PathPlannerAuto("Test")
+        // );
+        // return auto_commands;
+        //return new PathPlannerAuto("Test");
     }
 }

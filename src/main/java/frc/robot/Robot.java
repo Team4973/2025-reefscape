@@ -55,10 +55,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    System.out.println("Got Here...");
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    System.out.println("...And Got Here!");
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+      System.out.println("Not Null");
+    }
+    else {
+      System.out.println("Null");
     }
   }
 
