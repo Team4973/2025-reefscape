@@ -27,7 +27,7 @@ public class Limelight {
         double ta = taSub.get();
         double pipeline = pipelineSub.get();
         double id = idSub.get();
-       // System.out.println("ty =" + ty + "tx =" + tx + "ta" + ta +"pipeline type:"+ pipeline + "id:" + id);
+       System.out.println("ty =" + ty + "tx =" + tx + "ta" + ta +"pipeline type:"+ pipeline + "id:" + id);
     }
 }
 

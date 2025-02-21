@@ -7,6 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.commands.climber;
@@ -33,6 +34,9 @@ public class RobotContainer {
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+
+     private final TalonFX lClimber = new TalonFX(31); // left climber 
+     private final TalonFX rClimber = new TalonFX(30); // right climber
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
@@ -75,7 +79,34 @@ public class RobotContainer {
         // reset the field-centric heading on left bumper press
 
         drivetrain.registerTelemetry(logger::telemeterize);
-    }
+
+        joystick.x().onTrue(
+      new InstantCommand(() -> {
+        lClimber.set(0.5);
+        rClimber.set(0.5);
+      })
+    );
+    joystick.x().onFalse(
+      new InstantCommand(() -> {
+        lClimber.set(0);
+        rClimber.set(0);
+      })
+    );
+    joystick.y().onTrue(
+      new InstantCommand(() -> {
+        lClimber.set(-0.5);
+        rClimber.set(-0.5);
+      })
+    );
+
+    joystick.y().onFalse(
+      new InstantCommand(() -> {
+        lClimber.set(0);
+        rClimber.set(0);
+      })
+    );
+  }
+    
 
     public void zeroPigeon() {
     final Pigeon2 pigeon = drivetrain.getPigeon2();
