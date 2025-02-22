@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.CoralShooter.CoralShooterContainer;
-import frc.robot.Limelight.Limelight;
+import frc.robot.Vision.Limelight;
 import frc.robot.CoralShooter.CoralShooterConstants;
 
 import edu.wpi.first.wpilibj.SerialPort;
@@ -22,7 +22,7 @@ public class Robot extends TimedRobot {
 
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
-  public final Limelight limelight;
+  public final Limelight limelightContainer;
 
   private int previousPOV = -1;
 
@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     
     m_robotContainer = new RobotContainer();
     m_operatorController = new CoralShooterContainer();
-    limelight = new Limelight();
+    limelightContainer = new Limelight();
 
   }
 
@@ -90,6 +90,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
     int pov = joystick.getPOV();
 
     if (pov == 0 && previousPOV != 0) {
@@ -105,8 +106,6 @@ public class Robot extends TimedRobot {
       
     }
     previousPOV = pov;
-
-    limelight.getLimelightValues();
   }
 
   @Override
