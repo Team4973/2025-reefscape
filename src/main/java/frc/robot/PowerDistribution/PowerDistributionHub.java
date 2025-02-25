@@ -6,16 +6,22 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 public class PowerDistributionHub {
     PowerDistribution PowerDistributionCore = new PowerDistribution(1, ModuleType.kRev);
 
-    public void getVoltage() {
+    public double getVoltage() {
         double voltage = 12.32; //PowerDistributionCore.getVoltage();
+
+        return voltage;
     }
 
-    public void getPDHTemp() {
+    public double getPDHTemp() {
         double PDHTemp = PowerDistributionCore.getTemperature();
+
+        return PDHTemp;
     }
 
-    public void getTotalCurrent() {
+    public double getTotalCurrent() {
         double totalCurrent = PowerDistributionCore.getTotalCurrent();
+
+        return totalCurrent;
     }
 }
 

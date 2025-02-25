@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.CoralShooter.CoralShooterContainer;
-import frc.robot.Vision.Limelight;
 import frc.robot.CoralShooter.CoralShooterConstants;
+
+import frc.robot.Vision.Limelight;
+import frc.robot.Vision.LimelightSwerve;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
@@ -23,6 +25,7 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
   public final Limelight limelightContainer;
+  public final LimelightSwerve limelightSwerve;
 
   private int previousPOV = -1;
 
@@ -36,6 +39,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_operatorController = new CoralShooterContainer();
     limelightContainer = new Limelight();
+    limelightSwerve = new LimelightSwerve();
 
   }
 
@@ -106,6 +110,18 @@ public class Robot extends TimedRobot {
       
     }
     previousPOV = pov;
+
+    limelightContainer.configureLimelight();
+
+    limelightContainer.getLimelightTX();
+    limelightContainer.getLimelightTY();
+    limelightContainer.getLimelightTZ();
+    limelightContainer.getLimelightTID();
+
+    /* 
+    limelightSwerve.Distance(getLimelightTX, );
+    System.out.println("Distance = " + distance);
+    */
   }
 
   @Override

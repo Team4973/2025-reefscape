@@ -5,17 +5,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.security.AlgorithmConstraints;
 
 import edu.wpi.first.networktables.DoubleSubscriber;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
+import frc.robot.Vision.LimelightHelpers;
 
 public class Limelight {
     // create a new NetworkTables instance called limelightNT
@@ -24,6 +17,8 @@ public class Limelight {
     DoubleSubscriber txSub = limelightNT.getDoubleTopic("/limelight/tx").subscribe(0.0);
     // y
     DoubleSubscriber tySub = limelightNT.getDoubleTopic("/limelight/ty").subscribe(0.0);
+    // z 
+    DoubleSubscriber tzSub = limelightNT.getDoubleTopic("/limelight/tz").subscribe(0);
     // area
     DoubleSubscriber taSub = limelightNT.getDoubleTopic("/limelight/ta").subscribe(0.0);
    // get current limelight pipeline type
@@ -42,20 +37,26 @@ public class Limelight {
         return ty;
     }
 
+    public double getLimelightTZ() {
+        double tz = tzSub.get();
+        return tz;
+    }
+
+
     public double getLimelightTA() {
         double ta = taSub.get();
         return ta;
     }
 
-    public double gteLimelightTID() {
+    public double getLimelightTID() {
         double tid = idSub.get();
         return tid;
     }
+    
+    public void configureLimelight() {
+        LimelightHelpers.setLEDMode_PipelineControl("");
 
-    public Command alignLeft() {
-
-
-        return alignLeft();
+        LimelightHelpers.setLEDMode_ForceOff("");
     }
 }
 
