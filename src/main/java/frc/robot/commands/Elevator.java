@@ -15,12 +15,11 @@ import frc.robot.RobotContainer;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.Utils;
 
-public class climber {
+public class Elevator {
 
-   public CommandXboxController ArmOperatorController;
-    public climber (CommandXboxController rc){
-        ArmOperatorController = rc;
-        this.ClimbWithFalcon();
+   public CommandXboxController elevatorOperatorController;
+    public Elevator (CommandXboxController rc){
+        elevatorOperatorController = rc;
     }
 
    
@@ -30,49 +29,49 @@ public class climber {
     
     public void ClimbWithFalcon() {
 
-    ArmOperatorController.rightTrigger().onTrue( // move right motor clockwise on right trigger
+    elevatorOperatorController.rightTrigger().onTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-        rClimber.set(-0.25);
+        rClimber.set(0.5);
       })
     );
 
-    ArmOperatorController.rightTrigger().onFalse( // stop when not in use
-      new InstantCommand(() -> {
-        rClimber.set(0);
-      })
-    );
-
-    ArmOperatorController.rightBumper().onTrue( // move right motor counter-clockwise on right bumper
-      new InstantCommand(() -> {
-        rClimber.set(0.25);
-      })
-    );
-
-    ArmOperatorController.rightBumper().onFalse( // stop when not in use
+    elevatorOperatorController.rightTrigger().onFalse( // stop when not in use
       new InstantCommand(() -> {
         rClimber.set(0);
       })
     );
 
-    ArmOperatorController.leftTrigger().onTrue( // move left motor clockwise on right trigger
+    elevatorOperatorController.rightBumper().onTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        lClimber.set(0.25);
+        rClimber.set(-0.5);
       })
     );
 
-    ArmOperatorController.leftTrigger().onFalse( // stop motor when not in use
+    elevatorOperatorController.rightBumper().onFalse( // stop when not in use
+      new InstantCommand(() -> {
+        rClimber.set(0);
+      })
+    );
+
+    elevatorOperatorController.leftTrigger().onTrue( // move left motor clockwise on right trigger
+      new InstantCommand(() -> {
+        lClimber.set(0.5);
+      })
+    );
+
+    elevatorOperatorController.leftTrigger().onFalse( // stop motor when not in use
       new InstantCommand(() -> {
         lClimber.set(0);
       })
     );
 
-    ArmOperatorController.leftBumper().onTrue( // move left motor counter-clockwise on right bumper
+    elevatorOperatorController.leftBumper().onTrue( // move left motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        lClimber.set(-0.25);
+        lClimber.set(-0.5);
       })
     );
 
-    ArmOperatorController.leftBumper().onFalse( // stop motor when not in use
+    elevatorOperatorController.leftBumper().onFalse( // stop motor when not in use
       new InstantCommand(() -> {
         lClimber.set(0);
       })
