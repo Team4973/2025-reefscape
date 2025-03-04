@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -16,6 +17,8 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 
 public class Robot extends TimedRobot {
+
+  DigitalInput limitswitch = new DigitalInput(0);
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
@@ -96,6 +99,12 @@ public class Robot extends TimedRobot {
     //   e.printStackTrace();
     // }
     limelight.getLimelightValues();
+    if(limitswitch.get() == false){
+      System.out.println("STOP");
+    }
+    else{
+      System.out.println("Peace");
+    }
   }
   @Override
   public void testInit() {

@@ -20,6 +20,7 @@ public class climber {
    public CommandXboxController ArmOperatorController;
     public climber (CommandXboxController rc){
         ArmOperatorController = rc;
+        this.ClimbWithFalcon();
     }
 
    
@@ -31,7 +32,7 @@ public class climber {
 
     ArmOperatorController.rightTrigger().onTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-        rClimber.set(0.5);
+        rClimber.set(-0.25);
       })
     );
 
@@ -43,7 +44,7 @@ public class climber {
 
     ArmOperatorController.rightBumper().onTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        rClimber.set(-0.5);
+        rClimber.set(0.25);
       })
     );
 
@@ -55,7 +56,7 @@ public class climber {
 
     ArmOperatorController.leftTrigger().onTrue( // move left motor clockwise on right trigger
       new InstantCommand(() -> {
-        lClimber.set(0.5);
+        lClimber.set(0.25);
       })
     );
 
@@ -67,7 +68,7 @@ public class climber {
 
     ArmOperatorController.leftBumper().onTrue( // move left motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        lClimber.set(-0.5);
+        lClimber.set(-0.25);
       })
     );
 

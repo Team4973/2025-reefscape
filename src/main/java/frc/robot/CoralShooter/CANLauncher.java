@@ -4,12 +4,18 @@
 
 package frc.robot.CoralShooter;
 
-import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.*;
+import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kFeedCurrentLimit;
+import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kFeederID;
+import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kIntakeFeederSpeed;
+import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kIntakeLauncherSpeed;
+import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kLauncherCurrentLimit;
+import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kLauncherID;
 
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -18,6 +24,8 @@ public class CANLauncher extends SubsystemBase {
   SparkMax m_feedWheel;
   SparkMaxConfig m_launchWheelConfig;
   SparkMaxConfig m_feedWheelConfig;
+
+  //Limit Switch code
 
   /** Creates a new Launcher. */
   public CANLauncher() {
@@ -44,17 +52,18 @@ public class CANLauncher extends SubsystemBase {
     // The startEnd helper method takes a method to call when the command is initialized and one to
     // call when it ends
     return this.startEnd(
-        // When the command is initialized, set the wheels to the intake speed values
-        () -> {
-          setFeedWheel(kIntakeFeederSpeed);
-          //negative for crescendo bot, positive for reefscape bot.
-          setLaunchWheel(-kIntakeLauncherSpeed);
-        },
-        // When the command stops, stop the wheels
-        () -> {
-          stop();
-        });
-  }
+      // When the command is initialized, set the wheels to the intake speed values
+      () -> {
+        setFeedWheel(kIntakeFeederSpeed);
+        //negative for crescendo bot, positive for reefscape bot.
+        setLaunchWheel(-kIntakeLauncherSpeed);
+      },
+      // When the command stops, stop the wheels
+      () -> {
+        stop();
+      });
+    }
+    
 
 
   // An accessor method to set the speed (technically the output percentage) of the launch wheel
