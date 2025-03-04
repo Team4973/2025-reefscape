@@ -8,13 +8,17 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.CoralShooter.CoralShooterContainer;
-import frc.robot.Limelight.Limelight;
 import frc.robot.CoralShooter.CoralShooterConstants;
+
+import frc.robot.Vision.Limelight;
+import frc.robot.Vision.LimelightSwerve;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+
+import frc.robot.RobotContainer;
 
 public class Robot extends TimedRobot {
 
@@ -23,7 +27,12 @@ public class Robot extends TimedRobot {
 
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
-  public final Limelight limelight;
+  public final Limelight limelightContainer;
+  public final LimelightSwerve limelightSwerve;
+
+  private int previousPOV = -1;
+
+  private final XboxController joystick = new XboxController(0); 
 
   // initalize serial for Arduino LED subsystem communication 
   private SerialPort serial;
@@ -32,7 +41,8 @@ public class Robot extends TimedRobot {
     
     m_robotContainer = new RobotContainer();
     m_operatorController = new CoralShooterContainer();
-    limelight = new Limelight();
+    limelightContainer = new Limelight();
+    limelightSwerve = new LimelightSwerve();
 
   }
 
@@ -52,16 +62,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    System.out.println("Got Here...");
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    System.out.println("...And Got Here!");
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
-      System.out.println("Not Null");
-    }
-    else {
-      System.out.println("Null");
     }
   }
 
@@ -73,6 +77,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+
+    m_robotContainer.kSpeedDiv = 4.0;
 
     //serial = new SerialPort(9600, Port.kUSB);
 
@@ -91,21 +97,42 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    // int pattern = 2;
-    // try {
-    //   serial.writeString("2\n");
-    //   System.out.println("Sent" + pattern);
-    // } catch (Exception e) {
-    //   e.printStackTrace();
-    // }
-    limelight.getLimelightValues();
     if(limitswitch.get() == false){
       System.out.println("STOP");
     }
     else{
       System.out.println("Peace");
     }
+
+    int pov = joystick.getPOV();
+
+    if (pov == 0 && previousPOV != 0) {
+      m_robotContainer.kSpeedDiv -= 1.0; // subtract 1 from speed dvider for faster drive
+      
+    } else if (pov == 90 && previousPOV != 90) {
+      // currently unused
+    } else if (pov == 180 && previousPOV != 180) {
+      m_robotContainer.kSpeedDiv += 1.0; // add 1 to speed divider for slower drive 
+      
+    } else if (pov == 270 && previousPOV != 270) {
+      m_robotContainer.kSpeedDiv = 4.0; // reset to default speed (4.0)
+      
+    }
+    previousPOV = pov;
+
+    limelightContainer.configureLimelight();
+
+    limelightContainer.getLimelightTX();
+    limelightContainer.getLimelightTY();
+    limelightContainer.getLimelightTZ();
+    limelightContainer.getLimelightTID();
+
+    /* 
+    limelightSwerve.Distance(getLimelightTX, );
+    System.out.println("Distance = " + distance);
+    */
   }
+
   @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
