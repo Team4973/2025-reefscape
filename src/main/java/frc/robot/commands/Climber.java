@@ -15,50 +15,42 @@ import frc.robot.RobotContainer;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.Utils;
 
-public class Elevator {
+public class Climber {
 
    public CommandXboxController elevatorOperatorController;
-    public Elevator (CommandXboxController rc){
+    public Climber (CommandXboxController rc){
         elevatorOperatorController = rc;
     }
 
    
-    public final TalonFX lClimber = new TalonFX(31); // left climber 
-    public final TalonFX rClimber = new TalonFX(30); // right climber
+    public final TalonFX climber = new TalonFX(32); // left climber 
     //
     
     public void ClimbWithFalcon() {
 
-    elevatorOperatorController.y().onTrue( // move right motor clockwise on right trigger
+    elevatorOperatorController.rightTrigger().onTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-        rClimber.set(0.5);
-        lClimber.set(-0.5);
+        climber.set(0.5);
       })
     );
 
-    elevatorOperatorController.y().onFalse( // stop when not in use
+    elevatorOperatorController.rightTrigger().onFalse( // stop when not in use
       new InstantCommand(() -> {
-        rClimber.set(0);
-        lClimber.set(0);
+        climber.set(0);
       })
     );
 
-    elevatorOperatorController.a().onTrue( // move right motor counter-clockwise on right bumper
+    elevatorOperatorController.rightBumper().onTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        rClimber.set(-0.5);
-        lClimber.set(0.5);
+        climber.set(-0.5);
       })
     );
 
-    elevatorOperatorController.a().onFalse( // stop when not in use
+    elevatorOperatorController.rightBumper().onFalse( // stop when not in use
       new InstantCommand(() -> {
-        rClimber.set(0);
-        lClimber.set(0);
+        climber.set(0);
       })
     );
-
-    
-   
 
     }
 
