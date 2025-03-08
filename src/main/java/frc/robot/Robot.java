@@ -4,16 +4,18 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.CoralShooter.CoralShooterContainer;
 import frc.robot.CoralShooter.CoralShooterConstants;
-
+import frc.robot.commands.Elevator;
 import frc.robot.Vision.Limelight;
 import frc.robot.Vision.LimelightSwerve;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
@@ -35,7 +37,9 @@ public class Robot extends TimedRobot {
   private int previousPOV = -1;
 
   private final XboxController joystick = new XboxController(0); 
+  public final CommandXboxController xboxController = new CommandXboxController(0);
 
+  private  Elevator elevator = new Elevator (xboxController);
   // initalize serial for Arduino LED subsystem communication 
   private SerialPort serial;
 
