@@ -21,14 +21,16 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import frc.robot.RobotContainer;
 
 public class Robot extends TimedRobot {
-
-  DigitalInput limitswitch = new DigitalInput(0);
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
   public final Limelight limelightContainer;
   public final LimelightSwerve limelightSwerve;
+  /*
+   * TODO: We need a Elevator object
+   */
+
 
   private int previousPOV = -1;
 
@@ -43,6 +45,9 @@ public class Robot extends TimedRobot {
     m_operatorController = new CoralShooterContainer();
     limelightContainer = new Limelight();
     limelightSwerve = new LimelightSwerve();
+    /*
+     * TODO: Instatiate the Elevator objet
+     */
 
   }
 
@@ -97,12 +102,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    if(limitswitch.get() == false){
-      System.out.println("STOP");
-    }
-    else{
-      System.out.println("Peace");
-    }
+    /*
+     * TODO: This code needs to move to Elevator.
+     */
+  
+    /*
+     * TODO: Call the Periodic method of Elevator.
+     */
 
     int pov = joystick.getPOV();
 
