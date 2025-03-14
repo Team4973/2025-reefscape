@@ -29,9 +29,7 @@ public class Robot extends TimedRobot {
   public final CoralShooterContainer m_operatorController;
   public final Limelight limelightContainer;
   public final LimelightSwerve limelightSwerve;
-  /*
-   * TODO: We need a Elevator object
-   */
+
 
 
   private int previousPOV = -1;
@@ -49,9 +47,6 @@ public class Robot extends TimedRobot {
     m_operatorController = new CoralShooterContainer();
     limelightContainer = new Limelight();
     limelightSwerve = new LimelightSwerve();
-    /*
-     * TODO: Instatiate the Elevator objet
-     */
      elevator = new Elevator(xboxController);
      elevator.ClimbWithFalcon();
 
@@ -108,13 +103,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    /*
-     * TODO: This code needs to move to Elevator.
-     */
   
-    /*
-     * TODO: Call the Periodic method of Elevator.
-     */
+
+    elevator.elevatorPeriodic();
+
 
     int pov = joystick.getPOV();
 

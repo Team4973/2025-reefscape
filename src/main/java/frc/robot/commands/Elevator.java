@@ -74,13 +74,12 @@ public class Elevator {
       })
     );
 
-    /*
-     * TODO:
-     * We need an elevatorPeriodic() method.  This method will decide
-     * what to do based on the values of the limit switches.
-     * 
-     * General algorithm:
-     * 
+    
+  
+   
+
+    }
+/*
      * If the elevator is going up and the upper limit switch is 
      * engaged, then turn off the motor.  Set the direction to NONE
      * 
@@ -90,17 +89,13 @@ public class Elevator {
      *  direction = ElevatorDirection.ELEVATOR_STOPPED;
      *  if (direction == ElevatorDirection.ELEVATOR_DOWN)
      */
-   //elevatorPeriodic(){
-    //  if(limitswitch.get() == false){
-    //   System.out.println("STOP");
-    // }
-    // else{
-    //   System.out.println("Peace");
-    // }
-   //}
+    public void elevatorPeriodic() {
+      if(limitswitchDown.get() == false){
+         System.out.println("STOP");
+       }
+       else{
+         System.out.println("Peace");
+       }
 
-    }
-
-
-
+  }
 }
