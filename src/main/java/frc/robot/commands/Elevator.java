@@ -42,10 +42,12 @@ public class Elevator {
 
     elevatorOperatorController.y().whileTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-        rClimber.set(0.5);
-        lClimber.set(-0.5);
-       // direction = ElevatorDirection.ELEVATOR_UP;
-        System.out.println("up");
+        if(limitswitchUp.get() == true){
+          rClimber.set(0.5);
+          lClimber.set(-0.5);
+          direction = ElevatorDirection.ELEVATOR_UP;
+          System.out.println("up");
+        }
       })
     );
 
@@ -59,10 +61,12 @@ public class Elevator {
 
     elevatorOperatorController.a().whileTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-       rClimber.set(-0.5);
-       lClimber.set(0.5);
-       // direction = ElevatorDirection.ELEVATOR_DOWN;
-        System.out.println("down");
+        if(limitswitchDown.get() == true){
+          rClimber.set(-0.5);
+          lClimber.set(0.5);
+          direction = ElevatorDirection.ELEVATOR_DOWN;
+          System.out.println("down");
+        }
       })
     );
 
@@ -90,12 +94,26 @@ public class Elevator {
      *  if (direction == ElevatorDirection.ELEVATOR_DOWN)
      */
     public void elevatorPeriodic() {
-      if(limitswitchDown.get() == false){
-         System.out.println("STOP");
-       }
-       else{
-         System.out.println("Peace");
-       }
-
+      if (direction == ElevatorDirection.ELEVATOR_DOWN) {
+        if(limitswitchDown.get() == false){
+          direction = ElevatorDirection.ELEVATOR_STOPPED;
+          System.out.println("STOP");
+          rClimber.set(0);
+          lClimber.set(0);
+          // if the down switch is false
+          //     stop the motors
+          //     direction = ElevatorDirection.ELEVATOR_STOPPED;
+        }
+      }
+      if (direction == ElevatorDirection.ELEVATOR_UP) {
+        if(limitswitchUp.get() == false){
+          direction = ElevatorDirection.ELEVATOR_STOPPED;
+          System.out.println("STOP");
+          rClimber.set(0);
+          lClimber.set(0);
+        }
+      }
+      
+    
   }
 }
