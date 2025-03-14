@@ -14,8 +14,15 @@ import edu.wpi.first.wpilibj.Timer;
 
 import frc.robot.Shooter.ShooterContainer;
 
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.XboxController;
+
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+
+  private final XboxController joystick = new XboxController(0); 
+
+  private final XboxController joystick = new XboxController(0); 
 
   private final RobotContainer m_robotContainer;
   //public final ShooterContainer m_operatorController;
@@ -23,6 +30,8 @@ public class Robot extends TimedRobot {
   private SerialPort serial;
 
   public Robot() {
+
+    
     
     m_robotContainer = new RobotContainer();
     //m_operatorController = new ShooterContainer();
@@ -77,6 +86,21 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    int pov = joystick.getPOV();
+
+    if (pov == 0 && previousPOV != 0) {
+      m_robotContainer.kSpeedDiv -= 1.0; // subtract 1 from speed dvider for faster drive
+      
+    } else if (pov == 90 && previousPOV != 90) {
+      // currently unused
+    } else if (pov == 180 && previousPOV != 180) {
+      m_robotContainer.kSpeedDiv += 1.0; // add 1 to speed divider for slower drive 
+      
+    } else if (pov == 270 && previousPOV != 270) {
+      m_robotContainer.kSpeedDiv = 4.0; // reset to default speed (4.0)
+      
+    }
+    previousPOV = pov;
     int pattern = 2;
     try {
       serial.writeString("2\n");
