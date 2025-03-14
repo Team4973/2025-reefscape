@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
   private final XboxController joystick = new XboxController(0); 
   public final CommandXboxController xboxController = new CommandXboxController(0);
 
-  private  Elevator elevator = new Elevator (xboxController);
+  private  Elevator elevator;
   // initalize serial for Arduino LED subsystem communication 
   private SerialPort serial;
 
@@ -52,6 +52,8 @@ public class Robot extends TimedRobot {
     /*
      * TODO: Instatiate the Elevator objet
      */
+     elevator = new Elevator(xboxController);
+     elevator.ClimbWithFalcon();
 
   }
 

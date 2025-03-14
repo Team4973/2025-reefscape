@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
+
 import frc.robot.generated.TunerConstants;
 import frc.robot.RobotContainer;
 
@@ -19,6 +20,7 @@ import com.ctre.phoenix6.Utils;
 public class Elevator {
   DigitalInput limitswitchUp = new DigitalInput(0);
   DigitalInput limitswitchDown = new DigitalInput(1);
+
      
   enum ElevatorDirection {
     ELEVATOR_UP, ELEVATOR_DOWN, ELEVATOR_STOPPED
@@ -28,7 +30,7 @@ public class Elevator {
 
    public CommandXboxController elevatorOperatorController;
     public Elevator (CommandXboxController rc){
-        elevatorOperatorController = rc;
+        this.elevatorOperatorController = rc;
     }
 
    
@@ -38,43 +40,37 @@ public class Elevator {
     
     public void ClimbWithFalcon() {
 
-    elevatorOperatorController.y().onTrue( // move right motor clockwise on right trigger
+    elevatorOperatorController.y().whileTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
         rClimber.set(0.5);
         lClimber.set(-0.5);
-        /*
-         * TODO: set the direction to UP
-         */
+       // direction = ElevatorDirection.ELEVATOR_UP;
+        System.out.println("up");
       })
     );
 
-    elevatorOperatorController.y().onFalse( // stop when not in use
+    elevatorOperatorController.y().whileFalse( // stop when not in use
       new InstantCommand(() -> {
         rClimber.set(0);
         lClimber.set(0);
-        /*
-         * TODO: st the direction to STOPPED
-         */
+        direction = ElevatorDirection.ELEVATOR_STOPPED;
       })
     );
 
-    elevatorOperatorController.a().onTrue( // move right motor counter-clockwise on right bumper
+    elevatorOperatorController.a().whileTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        rClimber.set(-0.5);
-        lClimber.set(0.5);
-        /*
-         * TODO: Set the direction to DOWN
-         */
+       rClimber.set(-0.5);
+       lClimber.set(0.5);
+       // direction = ElevatorDirection.ELEVATOR_DOWN;
+        System.out.println("down");
       })
     );
 
-    elevatorOperatorController.a().onFalse( // stop when not in use
+    elevatorOperatorController.a().whileFalse( // stop when not in use
       new InstantCommand(() -> {
         rClimber.set(0);
         lClimber.set(0);
-        /*
-         * TODO: Set the direction to STOPPED
-         */
+        direction = ElevatorDirection.ELEVATOR_STOPPED;
       })
     );
 
@@ -94,13 +90,14 @@ public class Elevator {
      *  direction = ElevatorDirection.ELEVATOR_STOPPED;
      *  if (direction == ElevatorDirection.ELEVATOR_DOWN)
      */
-   
+   //elevatorPeriodic(){
     //  if(limitswitch.get() == false){
     //   System.out.println("STOP");
     // }
     // else{
     //   System.out.println("Peace");
     // }
+   //}
 
     }
 
