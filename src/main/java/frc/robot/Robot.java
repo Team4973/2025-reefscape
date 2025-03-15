@@ -7,34 +7,49 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.CoralShooter.CoralShooterContainer;
+import frc.robot.CoralShooter.CoralShooterConstants;
+import frc.robot.commands.Elevator;
+import frc.robot.Vision.Limelight;
+import frc.robot.Vision.LimelightSwerve;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
-import edu.wpi.first.wpilibj.Timer;
 
-import frc.robot.Shooter.ShooterContainer;
-
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.RobotContainer;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private final XboxController joystick = new XboxController(0); 
-
-  private final XboxController joystick = new XboxController(0); 
-
   private final RobotContainer m_robotContainer;
-  //public final ShooterContainer m_operatorController;
+  public final CoralShooterContainer m_operatorController;
+  public final Limelight limelightContainer;
+  public final LimelightSwerve limelightSwerve;
 
+
+
+  private int previousPOV = -1;
+
+  private final XboxController joystick = new XboxController(0); 
+  public final CommandXboxController xboxController = new CommandXboxController(0);
+
+  private  Elevator elevator;
+  // initalize serial for Arduino LED subsystem communication 
   private SerialPort serial;
 
   public Robot() {
-
-    
     
     m_robotContainer = new RobotContainer();
-    //m_operatorController = new ShooterContainer();
+    m_operatorController = new CoralShooterContainer();
+    limelightContainer = new Limelight();
+    limelightSwerve = new LimelightSwerve();
+     elevator = new Elevator(xboxController);
+     elevator.ClimbWithFalcon();
+
   }
 
   @Override
@@ -69,6 +84,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
 
+    m_robotContainer.kSpeedDiv = 4.0;
+
     //serial = new SerialPort(9600, Port.kUSB);
 
     //SerialPort serial = new SerialPort(9600, SerialPort.Port.kMXP);
@@ -86,6 +103,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+  
+
+    elevator.elevatorPeriodic();
+
+
     int pov = joystick.getPOV();
 
     if (pov == 0 && previousPOV != 0) {
@@ -101,20 +123,18 @@ public class Robot extends TimedRobot {
       
     }
     previousPOV = pov;
-    int pattern = 2;
-    try {
-      serial.writeString("2\n");
-      System.out.println("Sent" + pattern);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
 
-  @Override
-  public void teleopExit() {
-    if (serial != null) {
-      serial.close();
-  }
+    limelightContainer.configureLimelight();
+
+    limelightContainer.getLimelightTX();
+    limelightContainer.getLimelightTY();
+    limelightContainer.getLimelightTZ();
+    limelightContainer.getLimelightTID();
+
+    /* 
+    limelightSwerve.Distance(getLimelightTX, );
+    System.out.println("Distance = " + distance);
+    */
   }
 
   @Override
