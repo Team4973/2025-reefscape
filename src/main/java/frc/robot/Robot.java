@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.CoralShooter.CoralShooterContainer;
-import frc.robot.CoralShooter.CoralShooterConstants;
-import frc.robot.commands.Elevator;
+import frc.robot.Shooter.ShooterContainer;
+import frc.robot.Shooter.ShooterConstants;
 import frc.robot.Vision.Limelight;
 import frc.robot.Vision.LimelightSwerve;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -26,9 +25,9 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
-  public final CoralShooterContainer m_operatorController;
   public final Limelight limelightContainer;
   public final LimelightSwerve limelightSwerve;
+  private final ShooterContainer m_operatorController;
 
 
 
@@ -37,18 +36,15 @@ public class Robot extends TimedRobot {
   private final XboxController joystick = new XboxController(0); 
   public final CommandXboxController xboxController = new CommandXboxController(0);
 
-  private  Elevator elevator;
   // initalize serial for Arduino LED subsystem communication 
   private SerialPort serial;
 
   public Robot() {
     
     m_robotContainer = new RobotContainer();
-    m_operatorController = new CoralShooterContainer();
+    m_operatorController = new ShooterContainer();
     limelightContainer = new Limelight();
     limelightSwerve = new LimelightSwerve();
-     elevator = new Elevator(xboxController);
-     elevator.ClimbWithFalcon();
 
   }
 
@@ -103,9 +99,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-  
-
-    elevator.elevatorPeriodic();
 
 
     int pov = joystick.getPOV();
