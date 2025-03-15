@@ -17,6 +17,22 @@ import frc.robot.RobotContainer;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.Utils;
 
+/*
+ * TODO:
+ *
+ * We need to add these methods to the Elevator class.
+ * Then we need to use them instead of:
+          rClimber.set(0);
+ *
+ * public void setPosition(TalonFX climberMotor, double rotations) {
+ *       armMotor.setControl(positionControl.withPosition(rotations));
+ *  }
+ *
+ *  public double getPosition(TalonFX climberMotor) {
+ *       return armMotor.getPosition().getValueAsDouble();
+ * }
+ */
+
 public class Elevator {
   DigitalInput limitswitchUp = new DigitalInput(0);
   DigitalInput limitswitchDown = new DigitalInput(1);
@@ -36,7 +52,34 @@ public class Elevator {
    
     public final TalonFX lClimber = new TalonFX(31); // left climber 
     public final TalonFX rClimber = new TalonFX(30); // right climber
-    //
+
+    /*
+     * TODO:
+     * We need a positonControl:
+     * We need one of these for the left and right motors
+     * private final PositionDutyCycle positionControl = new PositionDutyCycle(0); // Position control object
+     */
+
+    /*
+     * TODO:
+     *
+     *  We need create a method to set the configuraion for the motors:
+     *
+     *  public setMotorConfiguration(TalonFX climberMotor) {
+     *
+     *  TalonFXConfiguration configs = new TalonFXConfiguration();
+     * 
+     *   // PID Gains (Tune these for your setup)
+     *   configs.Slot0.kP = 0.1;
+     *   configs.Slot0.kI = 0.0;
+     *   configs.Slot0.kD = 0.0;
+     *   configs.Slot0.kV = 0.0; // Optional feedforward
+     *
+     *   climberMotor.getConfigurator().apply(configs);
+     *   climberMotor.setPosition(0); // Reset encoder to zero
+     *  }
+     *
+     */
     
     public void ClimbWithFalcon() {
 
@@ -79,11 +122,17 @@ public class Elevator {
     );
 
     
+    /*
+     * TODO: 
+     * call setMotorConfiguration for the left climber
+     * call setMotorConfiguration for the right climber
+     */
   
    
 
     }
-/*
+
+    /*
      * If the elevator is going up and the upper limit switch is 
      * engaged, then turn off the motor.  Set the direction to NONE
      * 
