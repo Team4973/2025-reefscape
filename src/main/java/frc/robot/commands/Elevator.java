@@ -86,6 +86,7 @@ public class Elevator {
     elevatorOperatorController.y().whileTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
         if(limitswitchUp.get() == true){
+	/* TODO - replace these two "set" calls.  See below. */
           rClimber.set(0.5);
           lClimber.set(-0.5);
           direction = ElevatorDirection.ELEVATOR_UP;
@@ -96,6 +97,7 @@ public class Elevator {
 
     elevatorOperatorController.y().whileFalse( // stop when not in use
       new InstantCommand(() -> {
+	/* TODO - replace these two "set" calls.  See below. */
         rClimber.set(0);
         lClimber.set(0);
         direction = ElevatorDirection.ELEVATOR_STOPPED;
@@ -105,6 +107,7 @@ public class Elevator {
     elevatorOperatorController.a().whileTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
         if(limitswitchDown.get() == true){
+	/* TODO - replace these two "set" calls.  See below. */
           rClimber.set(-0.5);
           lClimber.set(0.5);
           direction = ElevatorDirection.ELEVATOR_DOWN;
@@ -115,6 +118,7 @@ public class Elevator {
 
     elevatorOperatorController.a().whileFalse( // stop when not in use
       new InstantCommand(() -> {
+	/* TODO - replace these two "set" calls.  See below. */
         rClimber.set(0);
         lClimber.set(0);
         direction = ElevatorDirection.ELEVATOR_STOPPED;
@@ -126,8 +130,19 @@ public class Elevator {
      * TODO: 
      * call setMotorConfiguration for the left climber
      * call setMotorConfiguration for the right climber
+     *
+     * Instead of calling rClimber.set(0) or rClimber.set(.5) 
+     * we need to call:
+     *
+     *    double rotations;
+     *
+     *    lClimber.setControl(sharedPositionControl.withPosition(rotations));
+     *    rClimber.setControl(sharedPositionControl.withPosition(rotations));
+     *
+     * We need to figure out values for "rotations"
+     * Remember, lCimber and rClimber will need opposite signs 
+     * (i.e. -100.0, 100.0)
      */
-  
    
 
     }
