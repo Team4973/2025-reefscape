@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.CoralShooter.CoralShooterContainer;
 import frc.robot.CoralShooter.CoralShooterConstants;
@@ -47,8 +48,28 @@ public class Robot extends TimedRobot {
     m_operatorController = new CoralShooterContainer();
     limelightContainer = new Limelight();
     limelightSwerve = new LimelightSwerve();
-     elevator = new Elevator(xboxController);
-     elevator.ClimbWithFalcon();
+    elevator = new Elevator(xboxController);
+    elevator.ClimbWithFalcon();
+
+    xboxController.rightBumper().whileTrue( // move right motor counter-clockwise on right bumper
+      new InstantCommand(() -> {
+        m_robotContainer.kSpeedDiv -= 1.0;
+          System.out.println("speedUp");
+      })
+    );
+
+    xboxController.leftBumper().whileTrue(
+      new InstantCommand(() -> {
+        m_robotContainer.kSpeedDiv += 1.0;
+        System.out.println("speeddown");
+      })
+    );
+
+    xboxController.b().whileTrue(
+      new InstantCommand(() -> {
+        m_robotContainer.kSpeedDiv = 4.0;
+      })
+    );
 
   }
 
@@ -108,21 +129,23 @@ public class Robot extends TimedRobot {
     elevator.elevatorPeriodic();
 
 
-    int pov = joystick.getPOV();
+    //boolean fast = 
 
-    if (pov == 0 && previousPOV != 0) {
-      m_robotContainer.kSpeedDiv -= 1.0; // subtract 1 from speed dvider for faster drive
+    // int pov = joystick.getPOV();
+
+    // if (pov == 0 && previousPOV != 0) {
+    //   m_robotContainer.kSpeedDiv -= 1.0; // subtract 1 from speed dvider for faster drive
       
-    } else if (pov == 90 && previousPOV != 90) {
-      // currently unused
-    } else if (pov == 180 && previousPOV != 180) {
-      m_robotContainer.kSpeedDiv += 1.0; // add 1 to speed divider for slower drive 
+    // } else if (pov == 90 && previousPOV != 90) {
+    //   // currently unused
+    // } else if (pov == 180 && previousPOV != 180) {
+    //   m_robotContainer.kSpeedDiv += 1.0; // add 1 to speed divider for slower drive 
       
-    } else if (pov == 270 && previousPOV != 270) {
-      m_robotContainer.kSpeedDiv = 4.0; // reset to default speed (4.0)
+    // } else if (pov == 270 && previousPOV != 270) {
+    //   m_robotContainer.kSpeedDiv = 4.0; // reset to default speed (4.0)
       
-    }
-    previousPOV = pov;
+    // }
+    // previousPOV = pov; - Changed to bumpers, can be optimized (Slavik)
 
     limelightContainer.configureLimelight();
 
