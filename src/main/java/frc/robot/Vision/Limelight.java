@@ -58,5 +58,9 @@ public class Limelight {
 
         LimelightHelpers.setLEDMode_ForceOff("");
     }
+
+    public void putSmartdashboardLimelight() {
+        
+    }
 }
 
