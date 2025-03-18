@@ -6,6 +6,8 @@ import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import frc.robot.PowerDistribution.PowerDistributionHub;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class PowerTelemetry {
     //final DoublePublisher powerDistributionTelemetryTopic;
 

@@ -3,11 +3,13 @@ package frc.robot.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class PowerDistributionHub {
     PowerDistribution PowerDistributionCore = new PowerDistribution(1, ModuleType.kRev);
 
     public double getVoltage() {
-        double voltage = 12.32; //PowerDistributionCore.getVoltage();
+        double voltage = PowerDistributionCore.getVoltage(); //PowerDistributionCore.getVoltage();
 
         return voltage;
     }
@@ -23,6 +25,14 @@ public class PowerDistributionHub {
 
         return totalCurrent;
     }
+
+    public void putSmartdashboardPower() {
+        SmartDashboard.putNumber("voltage", getVoltage());
+        SmartDashboard.putNumber("pdh temp", getPDHTemp()); 
+        SmartDashboard.putNumber("total current", getTotalCurrent());
+    }
+    
+
 }
 
 
