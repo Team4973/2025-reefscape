@@ -21,7 +21,11 @@ import com.ctre.phoenix6.Utils;
 
 public class Elevator {
 
+  double level[] = { 0.0, 10.0, 20.0, 30.0, 40.p };
+
   public CommandXboxController elevatorOperatorController;
+  double rotations;
+  int currentLevel;
 
   DigitalInput limitswitchUp = new DigitalInput(0);
   DigitalInput limitswitchDown = new DigitalInput(1);
@@ -47,6 +51,8 @@ public class Elevator {
   }
 
   public Elevator (CommandXboxController rc) {
+    this.rotations = 0;
+    this.currentLevel = 0;
     this.elevatorOperatorController = rc;
   }
 
@@ -73,11 +79,18 @@ public class Elevator {
     elevatorOperatorController.y().whileTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
         if(limitswitchUp.get() == true){
-        setPosition(rClimber, rightPositionControl, -10.0);
-        setPosition(lClimber, leftPositionControl, 10.0);
-
-          direction = ElevatorDirection.ELEVATOR_UP;
-          System.out.println("up");
+          if (currentLevel <= level.length - 1) {
+            currentLevel++;
+            rotations = level[currentLevel];
+            setPosition(rClimber, rightPositionControl, rotations);
+            setPosition(lClimber, leftPositionControl, -rotations);
+  
+            direction = ElevatorDirection.ELEVATOR_UP;
+            System.out.println("up");
+          }
+          else {
+            System.out.println("Heresy!");
+          }
         }
       })
     );
@@ -91,10 +104,18 @@ public class Elevator {
     elevatorOperatorController.a().whileTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
         if(limitswitchDown.get() == true){
-          setPosition(rClimber, rightPositionControl, 10.0);
-          setPosition(lClimber, leftPositionControl, -10.0);
-          direction = ElevatorDirection.ELEVATOR_DOWN;
-          System.out.println("down");
+          if (currentLevel != 0) {
+            currentLevel--;
+            rotations = level[currentLevel];
+            setPosition(rClimber, rightPositionControl, rotations);
+            setPosition(lClimber, leftPositionControl, -rotations);
+            direction = ElevatorDirection.ELEVATOR_DOWN;
+            System.out.println("down");
+          }
+          else {
+            System.out.println("Heresy!");
+          }
+
         }
       })
     );
