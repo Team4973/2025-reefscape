@@ -63,7 +63,7 @@ public class RobotContainer {
             )
         );
 
-        joystick.b().whileTrue(new InstantCommand(() -> {
+        joystick.x().whileTrue(new InstantCommand(() -> {
             zeroPigeon();
             System.out.println("pigeon rezeroed");
         }));

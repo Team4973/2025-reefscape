@@ -47,7 +47,7 @@ public class CoralShooterContainer {
   private void configureBindings() {
     // Set the default command for the drivetrain to drive using the joysticks
     m_operatorController
-        .a()
+        .rightTrigger()
         .whileTrue(
             new PrepareLaunch(m_launcher)
                 .withTimeout(LauncherConstants.kLauncherDelay)
@@ -59,9 +59,9 @@ public class CoralShooterContainer {
 
     // Set up a binding to run the intake command while the operator is pressing and holding the
     // left Bumper
-    m_operatorController.leftBumper().whileTrue(
-      m_launcher.getIntakeCommand());
-  }
+  //   m_operatorController.leftBumper().whileTrue(
+  //     m_launcher.getIntakeCommand());
+  // } We do not intake the coral.
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -74,4 +74,5 @@ public class CoralShooterContainer {
     return Autos.exampleAuto(m_drivetrain);
   }  */
 
+}
 }

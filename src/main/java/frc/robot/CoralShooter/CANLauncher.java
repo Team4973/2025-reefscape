@@ -48,21 +48,21 @@ public class CANLauncher extends SubsystemBase {
    * that need to span subsystems. The Subsystem class has helper methods, such as the startEnd
    * method used here, to create these commands.
    */
-  public Command getIntakeCommand() {
-    // The startEnd helper method takes a method to call when the command is initialized and one to
-    // call when it ends
-    return this.startEnd(
-      // When the command is initialized, set the wheels to the intake speed values
-      () -> {
-        setFeedWheel(kIntakeFeederSpeed);
-        //negative for crescendo bot, positive for reefscape bot.
-        setLaunchWheel(-kIntakeLauncherSpeed);
-      },
-      // When the command stops, stop the wheels
-      () -> {
-        stop();
-      });
-    }
+  // public Command getIntakeCommand() {
+  //   // The startEnd helper method takes a method to call when the command is initialized and one to
+  //   // call when it ends
+  //   return this.startEnd(
+  //     // When the command is initialized, set the wheels to the intake speed values
+  //     () -> {
+  //       setFeedWheel(kIntakeFeederSpeed);
+  //       //negative for crescendo bot, positive for reefscape bot.
+  //       setLaunchWheel(-kIntakeLauncherSpeed);
+  //     },
+  //     // When the command stops, stop the wheels
+  //     () -> {
+  //       stop();
+  //     });
+  //   } - No Intake!
     
 
 
