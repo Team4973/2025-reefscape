@@ -8,17 +8,20 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CoralShooter.CoralShooterContainer;
 import frc.robot.CoralShooter.CoralShooterConstants;
 import frc.robot.commands.Elevator;
 import frc.robot.Vision.Limelight;
 import frc.robot.Vision.LimelightSwerve;
+import frc.robot.PowerDistribution.PowerDistributionHub;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-
-
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.RobotContainer;
 
@@ -28,10 +31,9 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
   public final Limelight limelightContainer;
-  public final LimelightSwerve limelightSwerve;
-
-
-
+  public final LimelightSwerve limelightSwerve; 
+  public final PowerDistributionHub powerDistributionHub;
+ 
   private int previousPOV = -1;
 
   private final XboxController joystick = new XboxController(0); 
@@ -49,12 +51,14 @@ public class Robot extends TimedRobot {
     limelightSwerve = new LimelightSwerve();
      elevator = new Elevator(xboxController);
      elevator.ClimbWithFalcon();
-
+    powerDistributionHub = new PowerDistributionHub();
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run(); 
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
   }
 
   @Override
@@ -84,6 +88,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
 
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
+
     m_robotContainer.kSpeedDiv = 4.0;
 
     //serial = new SerialPort(9600, Port.kUSB);
@@ -103,6 +110,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
   
 
     elevator.elevatorPeriodic();
@@ -135,6 +145,7 @@ public class Robot extends TimedRobot {
     limelightSwerve.Distance(getLimelightTX, );
     System.out.println("Distance = " + distance);
     */
+     //SmartDashboard.putNumber("voltage", getVoltage());
   }
 
   @Override
