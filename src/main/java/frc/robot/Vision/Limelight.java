@@ -60,7 +60,11 @@ public class Limelight {
     }
 
     public void putSmartdashboardLimelight() {
-        
+        SmartDashboard.putNumber("TX:", getLimelightTX());
+        SmartDashboard.putNumber("TY:", getLimelightTY());
+        SmartDashboard.putNumber("TA:", getLimelightTA());
+        SmartDashboard.putNumber("TZ:", getLimelightTZ());
+        SmartDashboard.putNumber("TID:", getLimelightTID());
     }
 }
 
