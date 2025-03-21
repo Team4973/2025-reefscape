@@ -27,8 +27,8 @@ public class Elevator {
   double rotations;
   int currentLevel;
 
-  DigitalInput limitswitchUp = new DigitalInput(0);
-  DigitalInput limitswitchDown = new DigitalInput(1);
+  //DigitalInput limitswitchUp = new DigitalInput(0);
+  //DigitalInput limitswitchDown = new DigitalInput(1);
 
   enum ElevatorDirection {
     ELEVATOR_UP, ELEVATOR_DOWN, ELEVATOR_STOPPED
@@ -78,7 +78,6 @@ public class Elevator {
 
     elevatorOperatorController.y().whileTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-        if(limitswitchUp.get() == true){
           if (currentLevel <= level.length - 1) {
             currentLevel++;
             rotations = level[currentLevel];
@@ -91,7 +90,6 @@ public class Elevator {
           else {
             System.out.println("Heresy!");
           }
-        }
       })
     );
 
@@ -103,7 +101,6 @@ public class Elevator {
 
     elevatorOperatorController.a().whileTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        if(limitswitchDown.get() == true){
           if (currentLevel != 0) {
             currentLevel--;
             rotations = level[currentLevel];
@@ -115,8 +112,6 @@ public class Elevator {
           else {
             System.out.println("Heresy!");
           }
-
-        }
       })
     );
 
@@ -139,7 +134,6 @@ public class Elevator {
    */
   public void elevatorPeriodic() {
     if (direction == ElevatorDirection.ELEVATOR_DOWN) {
-      if(limitswitchDown.get() == false){
         direction = ElevatorDirection.ELEVATOR_STOPPED;
         System.out.println("STOP");
         rClimber.set(0);
@@ -148,14 +142,11 @@ public class Elevator {
         //     stop the motors
           //     direction = ElevatorDirection.ELEVATOR_STOPPED;
         }
-    }
     if (direction == ElevatorDirection.ELEVATOR_UP) {
-      if (limitswitchUp.get() == false){
         direction = ElevatorDirection.ELEVATOR_STOPPED;
         System.out.println("STOP");
         rClimber.set(0);
         lClimber.set(0);
-      }
     }
   }
 }
