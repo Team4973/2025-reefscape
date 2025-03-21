@@ -21,7 +21,7 @@ import com.ctre.phoenix6.Utils;
 
 public class Elevator {
 
-  double level[] = { 0.0, 10.0, 20.0, 30.0, 40.p };
+  double level[] = { 0.0, 10.0, 20.0, 30.0, 40.0 };
 
   public CommandXboxController elevatorOperatorController;
   double rotations;
