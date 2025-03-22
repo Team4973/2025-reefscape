@@ -135,20 +135,5 @@ public class Elevator {
    *  if (direction == ElevatorDirection.ELEVATOR_DOWN)
    */
   public void elevatorPeriodic() {
-    if (direction == ElevatorDirection.ELEVATOR_DOWN) {
-        direction = ElevatorDirection.ELEVATOR_STOPPED;
-        System.out.println("STOP");
-        rClimber.set(0);
-        lClimber.set(0);
-        // if the down switch is false
-        //     stop the motors
-          //     direction = ElevatorDirection.ELEVATOR_STOPPED;
-        }
-    if (direction == ElevatorDirection.ELEVATOR_UP) {
-        direction = ElevatorDirection.ELEVATOR_STOPPED;
-        System.out.println("STOP");
-        rClimber.set(0);
-        lClimber.set(0);
-    }
   }
 }
