@@ -43,7 +43,7 @@ public class RobotContainer {
     public final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    private Command runauto1 = drivetrain.getAutoPath("Test");
+    private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
     public double kSpeedDiv = 4.0; // 4.0 is our prefered speed for somewhat fast movements
 
