@@ -99,7 +99,7 @@ public class PowerDistributionHub {
     }
     
     public double getCH13current() {
-        double CH10current = PowerDistributionCore.getCurrent(13);
+        double CH13current = PowerDistributionCore.getCurrent(13);
 
         return CH13current;
     }
