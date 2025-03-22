@@ -78,11 +78,11 @@ public class Elevator {
 
     elevatorOperatorController.y().whileTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-          if (currentLevel <= level.length - 1) {
+          if (currentLevel < level.length - 1) {
             currentLevel++;
             rotations = level[currentLevel];
             setPosition(rClimber, rightPositionControl, rotations);
-            setPosition(lClimber, leftPositionControl, -rotations);
+            setPosition(lClimber, leftPositionControl, rotations);
   
             direction = ElevatorDirection.ELEVATOR_UP;
             System.out.println("up");
@@ -105,7 +105,7 @@ public class Elevator {
             currentLevel--;
             rotations = level[currentLevel];
             setPosition(rClimber, rightPositionControl, rotations);
-            setPosition(lClimber, leftPositionControl, -rotations);
+            setPosition(lClimber, leftPositionControl, rotations);
             direction = ElevatorDirection.ELEVATOR_DOWN;
             System.out.println("down");
           }
