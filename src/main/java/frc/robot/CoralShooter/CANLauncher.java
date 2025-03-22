@@ -11,8 +11,7 @@ import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kIn
 import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kLauncherCurrentLimit;
 import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kLauncherID;
 
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -20,25 +19,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class CANLauncher extends SubsystemBase {
-  SparkMax m_launchWheel;
-  SparkMax m_feedWheel;
-  SparkMaxConfig m_launchWheelConfig;
-  SparkMaxConfig m_feedWheelConfig;
+  public final TalonFX m_leftLaunchWheel; // left wheel
+  public final TalonFX m_rightLaunchWheel; // right wheel
+
 
   //Limit Switch code
 
   /** Creates a new Launcher. */
   public CANLauncher() {
-    m_launchWheel = new SparkMax(kLauncherID, MotorType.kBrushless);
-    m_feedWheel = new SparkMax(kFeederID, MotorType.kBrushless);
-    m_launchWheelConfig = new SparkMaxConfig();
-    m_feedWheelConfig = new SparkMaxConfig();
-
-    m_launchWheelConfig.smartCurrentLimit(kLauncherCurrentLimit);
-    m_feedWheelConfig.smartCurrentLimit(kFeedCurrentLimit);
-
-    m_launchWheel.configure(m_launchWheelConfig, null, null);
-    m_feedWheel.configure(m_feedWheelConfig, null, null);
+    m_leftLaunchWheel = new TalonFX(47); // left climber 
+    m_rightLaunchWheel = new TalonFX(48); // right climber
   }
 
   /**
@@ -48,38 +38,32 @@ public class CANLauncher extends SubsystemBase {
    * that need to span subsystems. The Subsystem class has helper methods, such as the startEnd
    * method used here, to create these commands.
    */
-  // public Command getIntakeCommand() {
-  //   // The startEnd helper method takes a method to call when the command is initialized and one to
-  //   // call when it ends
-  //   return this.startEnd(
-  //     // When the command is initialized, set the wheels to the intake speed values
-  //     () -> {
-  //       setFeedWheel(kIntakeFeederSpeed);
-  //       //negative for crescendo bot, positive for reefscape bot.
-  //       setLaunchWheel(-kIntakeLauncherSpeed);
-  //     },
-  //     // When the command stops, stop the wheels
-  //     () -> {
-  //       stop();
-  //     });
-  //   } - No Intake!
+  public Command getIntakeCommand() {
+    // The startEnd helper method takes a method to call when the command is initialized and one to
+    // call when it ends
+    return this.startEnd(
+      // When the command is initialized, set the wheels to the intake speed values
+      () -> {
+        launchCoral(kIntakeLauncherSpeed);
+      },
+      // When the command stops, stop the wheels
+      () -> {
+        stop();
+      });
+    }
     
 
 
   // An accessor method to set the speed (technically the output percentage) of the launch wheel
-  public void setLaunchWheel(double speed) {
-    m_launchWheel.set(-speed);
-  }
-
-  // An accessor method to set the speed (technically the output percentage) of the feed wheel
-  public void setFeedWheel(double speed) {
-    m_feedWheel.set(speed);
+  public void launchCoral(double speed) {
+    m_leftLaunchWheel.set(-speed);
+    m_rightLaunchWheel.set(speed);
   }
 
   // A helper method to stop both wheels. You could skip having a method like this and call the
   // individual accessors with speed = 0 instead
   public void stop() {
-    m_launchWheel.set(0);
-    m_feedWheel.set(0);
+    m_leftLaunchWheel.set(0);
+    m_rightLaunchWheel.set(0);
   }
 }

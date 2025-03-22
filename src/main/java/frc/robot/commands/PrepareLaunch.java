@@ -27,8 +27,7 @@ public class PrepareLaunch extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Set launch wheel to speed, keep feed wheel at 0 to let launch wheel spin up.
-    m_launcher.setLaunchWheel(kLauncherSpeed);
+    m_launcher.launchCoral(kLauncherSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -31,8 +31,7 @@ public class LaunchCoral extends Command {
   @Override
   public void initialize() {
     // Set the wheels to launching speed
-    m_launcher.setLaunchWheel(kLauncherSpeed);
-    m_launcher.setFeedWheel(kLaunchFeederSpeed);
+    m_launcher.launchCoral(kLauncherSpeed);
     System.out.println("Shooter fired");
   }
 
