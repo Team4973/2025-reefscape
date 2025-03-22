@@ -47,20 +47,12 @@ public class CoralShooterContainer {
   private void configureBindings() {
     // Set the default command for the drivetrain to drive using the joysticks
     m_operatorController
-        .a()
+        .rightTrigger()
         .whileTrue(
-            new PrepareLaunch(m_launcher)
-                .withTimeout(LauncherConstants.kLauncherDelay)
-                .andThen(new LaunchCoral(m_launcher))
+            new LaunchCoral(m_launcher)
                 .handleInterrupt(() -> m_launcher.stop())
                 
         );
-
-
-    // Set up a binding to run the intake command while the operator is pressing and holding the
-    // left Bumper
-    m_operatorController.leftBumper().whileTrue(
-      m_launcher.getIntakeCommand());
   }
 
   /**
