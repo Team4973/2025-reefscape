@@ -63,8 +63,10 @@ public class Elevator {
     // PID Gains (Tune these for your setup)
     configs.Slot0.kP = 0.1;
     configs.Slot0.kI = 0.0;
-    configs.Slot0.kD = 0.0;
+    configs.Slot0.kD = 0.01;
     configs.Slot0.kV = 0.0; // Optional feedforward
+    configs.Slot0.kS = 0.05;
+    configs.Slot0.kA = 0.001;
      
     climberMotor.getConfigurator().apply(configs);
     climberMotor.setPosition(0); // Reset encoder to zero
@@ -82,7 +84,7 @@ public class Elevator {
             currentLevel++;
             rotations = level[currentLevel];
             setPosition(rClimber, rightPositionControl, rotations);
-            setPosition(lClimber, leftPositionControl, rotations);
+            setPosition(lClimber, leftPositionControl, -rotations);
   
             direction = ElevatorDirection.ELEVATOR_UP;
             System.out.println("up");
@@ -105,7 +107,7 @@ public class Elevator {
             currentLevel--;
             rotations = level[currentLevel];
             setPosition(rClimber, rightPositionControl, rotations);
-            setPosition(lClimber, leftPositionControl, rotations);
+            setPosition(lClimber, leftPositionControl, -rotations);
             direction = ElevatorDirection.ELEVATOR_DOWN;
             System.out.println("down");
           }
