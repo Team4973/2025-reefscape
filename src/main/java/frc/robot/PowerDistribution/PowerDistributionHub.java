@@ -99,7 +99,7 @@ public class PowerDistributionHub {
     }
     
     public double getCH13current() {
-        double CH10current = PowerDistributionCore.getCurrent(13);
+        double CH13current = PowerDistributionCore.getCurrent(13);
 
         return CH13current;
     }
@@ -172,11 +172,14 @@ public class PowerDistributionHub {
 
     public void putSmartdashboardPower() {
         // get system-wide statistics
+        /*
         SmartDashboard.putNumber("voltage", getVoltage());
         SmartDashboard.putNumber("pdh temp", getPDHTemp()); 
         SmartDashboard.putNumber("total current", getTotalCurrent());
+        */
         
-        // get the current draw of indv. PDH channels
+        // get the current draw of indv. PDH channels 
+        /* 
         SmartDashboard.putNumber("CH1 Current", getCH1current());
         SmartDashboard.putNumber("CH2 Current", getCH2current());
         SmartDashboard.putNumber("CH3 Current", getCH3current());
@@ -201,9 +204,13 @@ public class PowerDistributionHub {
         SmartDashboard.putNumber("CH22 Current", getCH22current());
         SmartDashboard.putNumber("CH23 Current", getCH23current());
         SmartDashboard.putNumber("CH24 Current", getCH24current()); // LEDs
+        */
  
     }
-    
+     
+    public void setLEDs() {
+    PowerDistributionCore.setSwitchableChannel(true);
+    }
 
 }
 

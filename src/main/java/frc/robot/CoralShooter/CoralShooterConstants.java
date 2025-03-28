@@ -22,8 +22,8 @@ public final class CoralShooterConstants {
 
   public static class LauncherConstants {
     // PWM ports/CAN IDs for motor controllers
-    public static final int kFeederID = 22;
-    public static final int kLauncherID = 21;
+    public static final int kRightLauncherID = 22;
+    public static final int kLeftLauncherID = 21;
 
     // Current limit for launcher and feed wheels
     public static final int kLauncherCurrentLimit = 80;
@@ -31,12 +31,7 @@ public final class CoralShooterConstants {
 
     // Speeds for wheels when intaking and launching. Intake speeds are negative to run the wheels
     // in reverse
-    public static final double kLauncherSpeed = -10;
-    public static final double kLaunchFeederSpeed = 10;
-    public static final double kIntakeLauncherSpeed = -1;
-    public static final double kIntakeFeederSpeed = -.2;
-
-    public static final double kLauncherDelay = 1;
+    public static final double kLauncherSpeed = 10; // was 10
   }
 }
 

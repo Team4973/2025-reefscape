@@ -27,12 +27,12 @@ public class LaunchCoral extends Command {
     addRequirements(m_launcher);
   }
 
-  // The initialize method is called when the command is initially scheduled.
+  // The initialize method is called when the command is initially scheduled.   
   @Override
   public void initialize() {
     // Set the wheels to launching speed
-    m_launcher.setLaunchWheel(kLauncherSpeed);
-    m_launcher.setFeedWheel(kLaunchFeederSpeed);
+    m_launcher.setLeftLaunchWheel(-kLauncherSpeed);
+    m_launcher.setRightLaunchWheel(kLauncherSpeed);
     System.out.println("Shooter fired");
   }
 

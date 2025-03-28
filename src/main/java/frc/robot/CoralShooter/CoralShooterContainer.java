@@ -49,11 +49,8 @@ public class CoralShooterContainer {
     m_operatorController
         .rightTrigger()
         .whileTrue(
-            new PrepareLaunch(m_launcher)
-                .withTimeout(LauncherConstants.kLauncherDelay)
-                .andThen(new LaunchCoral(m_launcher))
+            new LaunchCoral(m_launcher)
                 .handleInterrupt(() -> m_launcher.stop())
-                
         );
 
 

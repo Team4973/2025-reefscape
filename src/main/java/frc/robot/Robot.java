@@ -63,16 +63,27 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
+  }
 
   @Override
-  public void disabledExit() {}
+  public void disabledExit() {
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
+  }
 
   @Override
   public void autonomousInit() {
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
@@ -81,7 +92,10 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
+  }
 
   @Override
   public void autonomousExit() {}
