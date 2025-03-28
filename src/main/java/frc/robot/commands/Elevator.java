@@ -63,8 +63,10 @@ public class Elevator {
     // PID Gains (Tune these for your setup)
     configs.Slot0.kP = 0.1;
     configs.Slot0.kI = 0.0;
-    configs.Slot0.kD = 0.0;
+    configs.Slot0.kD = 0.01;
     configs.Slot0.kV = 0.0; // Optional feedforward
+    configs.Slot0.kS = 0.05;
+    configs.Slot0.kA = 0.001;
      
     climberMotor.getConfigurator().apply(configs);
     climberMotor.setPosition(0); // Reset encoder to zero
@@ -78,7 +80,7 @@ public class Elevator {
 
     elevatorOperatorController.y().whileTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-          if (currentLevel <= level.length - 1) {
+          if (currentLevel < level.length - 1) {
             currentLevel++;
             rotations = level[currentLevel];
             setPosition(rClimber, rightPositionControl, rotations);
@@ -133,20 +135,5 @@ public class Elevator {
    *  if (direction == ElevatorDirection.ELEVATOR_DOWN)
    */
   public void elevatorPeriodic() {
-    if (direction == ElevatorDirection.ELEVATOR_DOWN) {
-        direction = ElevatorDirection.ELEVATOR_STOPPED;
-        System.out.println("STOP");
-        rClimber.set(0);
-        lClimber.set(0);
-        // if the down switch is false
-        //     stop the motors
-          //     direction = ElevatorDirection.ELEVATOR_STOPPED;
-        }
-    if (direction == ElevatorDirection.ELEVATOR_UP) {
-        direction = ElevatorDirection.ELEVATOR_STOPPED;
-        System.out.println("STOP");
-        rClimber.set(0);
-        lClimber.set(0);
-    }
   }
 }
