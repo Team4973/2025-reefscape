@@ -22,41 +22,11 @@ public class CANLauncher extends SubsystemBase {
   public final TalonFX m_leftLaunchWheel; // left wheel
   public final TalonFX m_rightLaunchWheel; // right wheel
 
-  SparkMax m_LeftLaunchWheel;
-  SparkMax m_RightLaunchWheel;
-  SparkMaxConfig m_launchWheelConfig;
-  SparkMaxConfig m_feedWheelConfig;
-
-  //Limit Switch code
-
   /** Creates a new Launcher. */
   public CANLauncher() {
     m_leftLaunchWheel = new TalonFX(47); // left climber 
     m_rightLaunchWheel = new TalonFX(48); // right climber
-  }
-
-  /**
-   * This method is an example of the 'subsystem factory' style of command creation. A method inside
-   * the subsytem is created to return an instance of a command. This works for commands that
-   * operate on only that subsystem, a similar approach can be done in RobotContainer for commands
-   * that need to span subsystems. The Subsystem class has helper methods, such as the startEnd
-   * method used here, to create these commands.
-   */
-  public Command getIntakeCommand() {
-    // The startEnd helper method takes a method to call when the command is initialized and one to
-    // call when it ends
-    return this.startEnd(
-      // When the command is initialized, set the wheels to the intake speed values
-      () -> {
-        launchCoral(kIntakeLauncherSpeed);
-      },
-      // When the command stops, stop the wheels
-      () -> {
-        stop();
-      });
-    }
-    
-
+  }   
 
   // An accessor method to set the speed (technically the output percentage) of the launch wheel
   public void launchCoral(double speed) {
