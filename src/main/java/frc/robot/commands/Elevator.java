@@ -89,7 +89,7 @@ public class Elevator {
     // TODO: Uncomment this line
     // rClimber.setControl(new Follower(leftClimberID, true));
 
-    // TODO: comment this line
+    // TODO: comment out this next line
     setMotorConfiguration(rClimber);
 
     //we think there are 40.5 rotations for the elevator to reach the top from the bottom 
