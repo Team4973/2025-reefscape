@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.RobotContainer;
@@ -23,7 +24,8 @@ import com.ctre.phoenix6.Utils;
 public class Elevator {
 
   double level[] = { 0.0, 10.0, 20.0, 30.0, 40.0 };
-  double level[] = { 0.0, 2.6, 10.0, 20.0, 30.0, 40.0 };
+  int leftClimberID = 31;
+  int rightClimberID = 30;
 
   public CommandXboxController elevatorOperatorController;
   double rotations;
@@ -38,16 +40,14 @@ public class Elevator {
 
   ElevatorDirection direction = ElevatorDirection.ELEVATOR_STOPPED;
 
-  public final TalonFX lClimber = new TalonFX(31); // left climber 
-  public final TalonFX rClimber = new TalonFX(30); // right climber
-  public final TalonFX rClimber = new TalonFX(30); // right climber - was  30
-
-  //Follower rightFollower = new Follower(31, false);
-
-  //rClimber.setControl(rightFollower);
+  public final TalonFX lClimber = new TalonFX(leftClimberID); // left climber 
+  public final TalonFX rClimber = new TalonFX(rightClimberID); // right climber
 
   private final PositionDutyCycle leftPositionControl = new PositionDutyCycle(0);
-  private final PositionDutyCycle rightPositionControl = new PositionDutyCycle(0);
+  // TODO:
+  // Comment out this next line, if the right motor is a follower, we will only set the position
+  // of the leader (the left)
+  //private final PositionDutyCycle rightPositionControl = new PositionDutyCycle(0);
 
   public void setPosition(TalonFX climberMotor, PositionDutyCycle positionControl, double rotations) {
     climberMotor.setControl(positionControl.withPosition(rotations));
@@ -81,7 +81,17 @@ public class Elevator {
 
   public void ClimbWithFalcon() {
     setMotorConfiguration(lClimber);
-    setMotorConfiguration(rClimber);
+
+    // TODO:
+    // Instead of calling the setMotorConfiguration, we need to set the rClimber
+    // as a Follower.  We set the follower ID of the right climber to the ID
+    // of the left climber.
+
+    // TODO: Uncomment this line
+     rClimber.setControl(new Follower(leftClimberID, true));
+
+    // TODO: comment out this next line
+    //setMotorConfiguration(rClimber);
 
     //we think there are 40.5 rotations for the elevator to reach the top from the bottom 
 
@@ -90,7 +100,9 @@ public class Elevator {
           if (currentLevel < level.length - 1) {
             currentLevel++;
             rotations = level[currentLevel];
-            setPosition(rClimber, rightPositionControl, rotations);
+            // TODO:
+            // Comment out this next line.  We only set the postion of the leader (left) motor
+            //setPosition(rClimber, rightPositionControl, rotations);
             setPosition(lClimber, leftPositionControl, -rotations);
   
             direction = ElevatorDirection.ELEVATOR_UP;
@@ -113,7 +125,9 @@ public class Elevator {
           if (currentLevel != 0) {
             currentLevel--;
             rotations = level[currentLevel];
-            setPosition(rClimber, rightPositionControl, rotations);
+            // TODO:
+            // Comment out this next line.  We only set the postion of the leader (left) motor
+            //setPosition(rClimber, rightPositionControl, rotations);
             setPosition(lClimber, leftPositionControl, -rotations);
             direction = ElevatorDirection.ELEVATOR_DOWN;
             System.out.println("down");
