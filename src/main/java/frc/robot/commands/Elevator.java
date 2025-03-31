@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.controls.Follower;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.RobotController;
@@ -22,6 +23,7 @@ import com.ctre.phoenix6.Utils;
 public class Elevator {
 
   double level[] = { 0.0, 10.0, 20.0, 30.0, 40.0 };
+  double level[] = { 0.0, 2.6, 10.0, 20.0, 30.0, 40.0 };
 
   public CommandXboxController elevatorOperatorController;
   double rotations;
@@ -38,6 +40,11 @@ public class Elevator {
 
   public final TalonFX lClimber = new TalonFX(31); // left climber 
   public final TalonFX rClimber = new TalonFX(30); // right climber
+  public final TalonFX rClimber = new TalonFX(30); // right climber - was  30
+
+  //Follower rightFollower = new Follower(31, false);
+
+  //rClimber.setControl(rightFollower);
 
   private final PositionDutyCycle leftPositionControl = new PositionDutyCycle(0);
   private final PositionDutyCycle rightPositionControl = new PositionDutyCycle(0);

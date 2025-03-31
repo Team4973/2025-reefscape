@@ -45,7 +45,7 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
-    public double kSpeedDiv = 4.0; // 4.0 is our prefered speed for somewhat fast movements
+    public double kSpeedDiv = 2.0; // 4.0 is our prefered speed for somewhat fast movements
 
     public RobotContainer() {
         configureBindings();
