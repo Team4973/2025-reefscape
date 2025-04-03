@@ -19,8 +19,6 @@ import frc.robot.PowerDistribution.PowerDistributionHub;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -41,8 +39,6 @@ public class Robot extends TimedRobot {
   public final CommandXboxController xboxController = new CommandXboxController(0);
 
   private  Elevator elevator;
-  // initalize serial for Arduino LED subsystem communication 
-  private SerialPort serial;
 
   public Robot() {
     
@@ -53,6 +49,7 @@ public class Robot extends TimedRobot {
      elevator = new Elevator(xboxController);
      elevator.ClimbWithFalcon();
     powerDistributionHub = new PowerDistributionHub();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
@@ -60,24 +57,28 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run(); 
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
   public void disabledInit() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+  //  m_robotContainer.setLEDs();
   }
 
   @Override
   public void disabledPeriodic() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+  //  m_robotContainer.setLEDs();
   }
 
   @Override
   public void disabledExit() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
@@ -85,6 +86,7 @@ public class Robot extends TimedRobot {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+   // m_robotContainer.setLEDs();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -95,6 +97,7 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
@@ -108,15 +111,7 @@ public class Robot extends TimedRobot {
 
     m_robotContainer.kSpeedDiv = 4.0;
 
-    //serial = new SerialPort(9600, Port.kUSB);
-
-    //SerialPort serial = new SerialPort(9600, SerialPort.Port.kMXP);
-    
-    //int pattern = 2;
-
-    //serial.writeString(pattern + "\n");
-
-    //serial.writeString(Integer.toString(pattern) + "\n" );
+    //m_robotContainer.setLEDs();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
@@ -131,6 +126,8 @@ public class Robot extends TimedRobot {
   
 
     elevator.elevatorPeriodic();
+
+    //m_robotContainer.setLEDs();
 
 
     //boolean fast = 

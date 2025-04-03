@@ -179,7 +179,8 @@ public class PowerDistributionHub {
         */
 
         // get the current draw of indv. PDH channels 
-         
+        
+        /* 
         SmartDashboard.putNumber("CH1 Current", getCH1current());
         SmartDashboard.putNumber("CH2 Current", getCH2current());
         SmartDashboard.putNumber("CH3 Current", getCH3current());
@@ -204,6 +205,7 @@ public class PowerDistributionHub {
         SmartDashboard.putNumber("CH22 Current", getCH22current());
         SmartDashboard.putNumber("CH23 Current", getCH23current());
         SmartDashboard.putNumber("CH24 Current", getCH24current()); // LEDs
+        */
         
  
     }
