@@ -8,7 +8,7 @@ import java.lang.Math;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -45,21 +45,25 @@ public class LimelightSwerve extends Command{
     }
 
     // move the swerve drive-base to align with the AprilTag
-    public Command alignToTag(CommandSwerveDrivetrain drivetrain, FieldCentric drive) {
-        if (getLimelightTX > 0) {
-            return drivetrain.applyRequest(() -> drive.withVelocityX(0)
-            .withVelocityY(-1)
-            .withRotationalRate(0));
+    public void alignToTag(CommandSwerveDrivetrain drivetrain, FieldCentric drive, Limelight limelightContainer) {
+        if (limelightContainer.getLimelightTX() > 0) {
+            System.out.println("Go right!");
+           // drivetrain.
+            //drive.withVelocityX(0)
+            //.withVelocityY(1)
+            //.withRotationalRate(0);
         } 
-        else if(getLimelightTX < 0){
-            return drivetrain.applyRequest(() -> drive.withVelocityX(0)
-            .withVelocityY(1)
-            .withRotationalRate(0));
+        else if(limelightContainer.getLimelightTX() < 0){
+            System.out.println("Go left!");
+            drive.withVelocityX(0)
+            .withVelocityY(-1)
+            .withRotationalRate(0);
         } 
         else {
-            return drivetrain.applyRequest(() -> drive.withVelocityX(0)
+            System.out.println("STOP!");
+            drive.withVelocityX(0)
             .withVelocityY(0)
-            .withRotationalRate(0));
+            .withRotationalRate(0);
         }
     }
 
@@ -68,7 +72,8 @@ public class LimelightSwerve extends Command{
   public void initialize() {
     // TODO:  figure out if the tag is to the left or right
     // start the robot going the correct direction
-    alignToTag(drivetrain, drive);
+    System.out.println("Initialize!");
+    alignToTag(drivetrain, drive, limelightContainer);
 
   }
 
@@ -76,6 +81,7 @@ public class LimelightSwerve extends Command{
   @Override
   public void execute() {
     // Process vision data continuously, such as updating target info
+    //System.out.println("Execute!");
     
   }
 
@@ -86,13 +92,16 @@ public class LimelightSwerve extends Command{
     // For instance, finish when a valid target is acquired
     // Check to see if we are aligned or we can no longer see the tag
     // If we are about to return isFinished true, then stop the robot
+    //System.out.println(limelightContainer.getLimelightTX());
 
-    if (Math.abs(limelightContainer.getLimelightTX()) < 10)
-    {return true;}
-    else
-    {return false;}
-
-
+    if (Math.abs(limelightContainer.getLimelightTX()) < 10) {
+            System.out.println("Stoppping");
+            return true;
+    }
+    else {
+        System.out.println("Keep going");
+        return false;
+    }
   }
 
   // Called when the command ends or is interrupted
@@ -101,8 +110,9 @@ public class LimelightSwerve extends Command{
     // Turn off the LED to conserve power or signal end of processing
 
     // TODO: Stop the robot
-    drivetrain.applyRequest(() -> drive.withVelocityX(0)
+    System.out.println("STOP!");
+    drive.withVelocityX(0)
             .withVelocityY(0)
-            .withRotationalRate(0));
+            .withRotationalRate(0);
   }
 }
