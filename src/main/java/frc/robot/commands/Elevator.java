@@ -23,7 +23,7 @@ import com.ctre.phoenix6.Utils;
 
 public class Elevator {
 
-  double level[] = { 0.0, 10.0, 20.0, 30.0, 40.0 };
+  double level[] = { 0.0, 3.3, 10, 20.0, 42.0 };
   int leftClimberID = 31;
   int rightClimberID = 30;
 
@@ -156,5 +156,6 @@ public class Elevator {
    *  if (direction == ElevatorDirection.ELEVATOR_DOWN)
    */
   public void elevatorPeriodic() {
+
   }
 }
