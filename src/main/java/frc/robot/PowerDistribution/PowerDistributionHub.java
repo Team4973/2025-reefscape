@@ -164,11 +164,7 @@ public class PowerDistributionHub {
         return CH23current;
     }
 
-    public double getCH24current() {
-        double CH24current = PowerDistributionCore.getCurrent(24);
-
-        return CH24current;
-    }
+    
 
     public void putSmartdashboardPower() {
         // get system-wide statistics
@@ -180,30 +176,30 @@ public class PowerDistributionHub {
 
         // get the current draw of indv. PDH channels 
          
-        SmartDashboard.putNumber("CH1 Current", getCH1current());
-        SmartDashboard.putNumber("CH2 Current", getCH2current());
-        SmartDashboard.putNumber("CH3 Current", getCH3current());
-        SmartDashboard.putNumber("CH4 Current", getCH4current());
-        SmartDashboard.putNumber("CH5 Current", getCH5current());
-        SmartDashboard.putNumber("CH6 Current", getCH6current());
-        SmartDashboard.putNumber("CH7 Current", getCH7current()); // Limelight
-        SmartDashboard.putNumber("CH8 Current", getCH8current());
-        SmartDashboard.putNumber("CH9 Current", getCH9current());
-        SmartDashboard.putNumber("CH10 Current", getCH10current());
-        SmartDashboard.putNumber("CH11 Current", getCH11current());
-        SmartDashboard.putNumber("CH12 Current", getCH12current());
-        SmartDashboard.putNumber("CH13 Current", getCH13current());
-        SmartDashboard.putNumber("CH14 Current", getCH14current());
-        SmartDashboard.putNumber("CH15 Current", getCH15current());
-        SmartDashboard.putNumber("CH16 Current", getCH16current());
-        SmartDashboard.putNumber("CH17 Current", getCH17current());
-        SmartDashboard.putNumber("CH18 Current", getCH18current());
-        SmartDashboard.putNumber("CH19 Current", getCH19current());
-        SmartDashboard.putNumber("CH20 Current", getCH20current());
-        SmartDashboard.putNumber("CH21 Current", getCH21current());
-        SmartDashboard.putNumber("CH22 Current", getCH22current());
-        SmartDashboard.putNumber("CH23 Current", getCH23current());
-        SmartDashboard.putNumber("CH24 Current", getCH24current()); // LEDs
+        // SmartDashboard.putNumber("CH1 Current", getCH1current());
+        // SmartDashboard.putNumber("CH2 Current", getCH2current());
+        // SmartDashboard.putNumber("CH3 Current", getCH3current());
+        // SmartDashboard.putNumber("CH4 Current", getCH4current());
+        // SmartDashboard.putNumber("CH5 Current", getCH5current());
+        // SmartDashboard.putNumber("CH6 Current", getCH6current());
+        // SmartDashboard.putNumber("CH7 Current", getCH7current()); // Limelight
+        // SmartDashboard.putNumber("CH8 Current", getCH8current());
+        // SmartDashboard.putNumber("CH9 Current", getCH9current());
+        // SmartDashboard.putNumber("CH10 Current", getCH10current());
+        // SmartDashboard.putNumber("CH11 Current", getCH11current());
+        // SmartDashboard.putNumber("CH12 Current", getCH12current());
+        // SmartDashboard.putNumber("CH13 Current", getCH13current());
+        // SmartDashboard.putNumber("CH14 Current", getCH14current());
+        // SmartDashboard.putNumber("CH15 Current", getCH15current());
+        // SmartDashboard.putNumber("CH16 Current", getCH16current());
+        // SmartDashboard.putNumber("CH17 Current", getCH17current());
+        // SmartDashboard.putNumber("CH18 Current", getCH18current());
+        // SmartDashboard.putNumber("CH19 Current", getCH19current());
+        // SmartDashboard.putNumber("CH20 Current", getCH20current());
+        // SmartDashboard.putNumber("CH21 Current", getCH21current());
+        // SmartDashboard.putNumber("CH22 Current", getCH22current());
+        // SmartDashboard.putNumber("CH23 Current", getCH23current());
+        //SmartDashboard.putNumber("CH24 Current", getCH24current()); // LEDs
         
  
     }

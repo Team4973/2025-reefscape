@@ -14,7 +14,6 @@ import frc.robot.CoralShooter.CoralShooterContainer;
 import frc.robot.CoralShooter.CoralShooterConstants;
 import frc.robot.commands.Elevator;
 import frc.robot.Vision.Limelight;
-import frc.robot.Vision.LimelightSwerve;
 import frc.robot.PowerDistribution.PowerDistributionHub;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -32,7 +31,6 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
   public final Limelight limelightContainer;
-  public final LimelightSwerve limelightSwerve; 
   public final PowerDistributionHub powerDistributionHub;
  
   private int previousPOV = -1;
@@ -49,9 +47,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_operatorController = new CoralShooterContainer();
     limelightContainer = new Limelight();
-    limelightSwerve = new LimelightSwerve();
-     elevator = new Elevator(xboxController);
-     elevator.ClimbWithFalcon();
+    elevator = new Elevator(xboxController);
+    elevator.ClimbWithFalcon();
     powerDistributionHub = new PowerDistributionHub();
   }
 
@@ -126,8 +123,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    powerDistributionHub.putSmartdashboardPower();
-    m_robotContainer.putSmartdashboardRobotContainer();
+    //powerDistributionHub.putSmartdashboardPower();
+    //m_robotContainer.putSmartdashboardRobotContainer();
   
 
     elevator.elevatorPeriodic();

@@ -76,7 +76,6 @@ public class Elevator {
     configs.Slot0.kA = 0.001;
      
     climberMotor.getConfigurator().apply(configs);
-    climberMotor.setPosition(0); // Reset encoder to zero
   }
 
   public void ClimbWithFalcon() {
@@ -89,6 +88,7 @@ public class Elevator {
 
     // TODO: Uncomment this line
      rClimber.setControl(new Follower(leftClimberID, true));
+     lClimber.setPosition(level[0]); // Reset encoder to zero - moved from before TODO to hopefully stop elevator squeaking after the bottom.
 
     // TODO: comment out this next line
     //setMotorConfiguration(rClimber);

@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.Vision.LimelightSwerve;
+import frc.robot.Vision.Limelight;
 
 public class RobotContainer {
      
@@ -40,12 +42,15 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
+    private Limelight limelightContainer = new Limelight();
+
     public final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
-    public double kSpeedDiv = 2.0; // 4.0 is our prefered speed for somewhat fast movements
+    // drive-base speed master control
+    public double kSpeedDiv = 3.0; // 3.0 is our prefered speed for semi-fast drive-base movements
 
     public RobotContainer() {
         configureBindings();
@@ -63,6 +68,9 @@ public class RobotContainer {
             )
         );
 
+        joystick.leftTrigger().onTrue(new LimelightSwerve(drivetrain, drive, limelightContainer)
+        );
+
         joystick.x().whileTrue(new InstantCommand(() -> {
             zeroPigeon();
             System.out.println("pigeon rezeroed");
@@ -78,32 +86,6 @@ public class RobotContainer {
         // reset the field-centric heading on left bumper press
 
         drivetrain.registerTelemetry(logger::telemeterize);
-
-   /*     joystick.x().onTrue(
-      new InstantCommand(() -> {
-        lClimber.set(0.5);
-        rClimber.set(0.5);
-      })
-    );
-    joystick.x().onFalse(
-      new InstantCommand(() -> {
-        lClimber.set(0);
-        rClimber.set(0);
-      })
-    );
-    joystick.y().onTrue(
-      new InstantCommand(() -> {
-        lClimber.set(-0.5);
-        rClimber.set(-0.5);
-      })
-    );
-
-    joystick.y().onFalse(
-      new InstantCommand(() -> {
-        lClimber.set(0);
-        rClimber.set(0);
-      })
-    );*/
   }
     
     
