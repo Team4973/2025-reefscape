@@ -17,36 +17,36 @@ import com.ctre.phoenix6.Utils;
 
 public class Climber {
 
-   public CommandXboxController elevatorOperatorController;
+   public CommandXboxController climberOperatorController;
     public Climber (CommandXboxController rc){
-        elevatorOperatorController = rc;
+        climberOperatorController = rc;
     }
 
    
-    public final TalonFX climber = new TalonFX(32); // left climber 
+    public final TalonFX climber = new TalonFX(25); // left climber 
     //
     
     public void ClimbWithFalcon() {
 
-    elevatorOperatorController.rightTrigger().onTrue( // move right motor clockwise on right trigger
+    climberOperatorController.povUp().onTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
         climber.set(0.5);
       })
     );
 
-    elevatorOperatorController.rightTrigger().onFalse( // stop when not in use
+    climberOperatorController.povUp().onFalse( // stop when not in use
       new InstantCommand(() -> {
         climber.set(0);
       })
     );
 
-    elevatorOperatorController.rightBumper().onTrue( // move right motor counter-clockwise on right bumper
+    climberOperatorController.povDown().onTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
         climber.set(-0.5);
       })
     );
 
-    elevatorOperatorController.rightBumper().onFalse( // stop when not in use
+    climberOperatorController.povDown().onFalse( // stop when not in use
       new InstantCommand(() -> {
         climber.set(0);
       })
