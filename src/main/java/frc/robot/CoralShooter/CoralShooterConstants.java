@@ -31,7 +31,7 @@ public final class CoralShooterConstants {
 
     // Speeds for wheels when intaking and launching. Intake speeds are negative to run the wheels
     // in reverse
-    public static final double kLauncherSpeed = 10; // was 10
+    public static final double kLauncherSpeed = 2; // was 10
   }
 }
 

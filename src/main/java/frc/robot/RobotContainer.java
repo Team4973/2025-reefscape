@@ -22,6 +22,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
+
 public class RobotContainer {
      
     
@@ -45,7 +48,9 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
-    public double kSpeedDiv = 4.0; // 4.0 is our prefered speed for somewhat fast movements
+    public double kSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.5); // 3.5 is our prefered speed for somewhat fast movements
+
+    private SerialPort serial;
 
     public RobotContainer() {
         configureBindings();
@@ -79,31 +84,6 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-   /*     joystick.x().onTrue(
-      new InstantCommand(() -> {
-        lClimber.set(0.5);
-        rClimber.set(0.5);
-      })
-    );
-    joystick.x().onFalse(
-      new InstantCommand(() -> {
-        lClimber.set(0);
-        rClimber.set(0);
-      })
-    );
-    joystick.y().onTrue(
-      new InstantCommand(() -> {
-        lClimber.set(-0.5);
-        rClimber.set(-0.5);
-      })
-    );
-
-    joystick.y().onFalse(
-      new InstantCommand(() -> {
-        lClimber.set(0);
-        rClimber.set(0);
-      })
-    );*/
   }
     
     
@@ -125,6 +105,16 @@ public class RobotContainer {
     }
 
     public void putSmartdashboardRobotContainer() {
-        SmartDashboard.putNumber("Input Speed Div", kSpeedDiv);
+        //SmartDashboard.putNumber("Input Speed Div", kSpeedDiv);
+        //SmartDashboard.getNumber("Input Speed Div", kSpeedDiv);
+        //SmartDashboard.setDefaultNumber("Input Speed Div", kSpeedDiv);
+    }
+
+    public void setLEDs() {
+      serial = new SerialPort(9600, Port.kUSB1);
+
+      serial.writeString("1\n");
+
+      System.out.println("LED code called");
     }
 }

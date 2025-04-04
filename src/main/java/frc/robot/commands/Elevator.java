@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.controls.Follower;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.RobotController;
@@ -46,7 +47,7 @@ public class Elevator {
   // TODO:
   // Comment out this next line, if the right motor is a follower, we will only set the position
   // of the leader (the left)
-  private final PositionDutyCycle rightPositionControl = new PositionDutyCycle(0);
+  //private final PositionDutyCycle rightPositionControl = new PositionDutyCycle(0);
 
   public void setPosition(TalonFX climberMotor, PositionDutyCycle positionControl, double rotations) {
     climberMotor.setControl(positionControl.withPosition(rotations));
@@ -87,10 +88,10 @@ public class Elevator {
     // of the left climber.
 
     // TODO: Uncomment this line
-    // rClimber.setControl(new Follower(leftClimberID, true));
+     rClimber.setControl(new Follower(leftClimberID, true));
 
     // TODO: comment out this next line
-    setMotorConfiguration(rClimber);
+    //setMotorConfiguration(rClimber);
 
     //we think there are 40.5 rotations for the elevator to reach the top from the bottom 
 
@@ -101,7 +102,7 @@ public class Elevator {
             rotations = level[currentLevel];
             // TODO:
             // Comment out this next line.  We only set the postion of the leader (left) motor
-            setPosition(rClimber, rightPositionControl, rotations);
+            //setPosition(rClimber, rightPositionControl, rotations);
             setPosition(lClimber, leftPositionControl, -rotations);
   
             direction = ElevatorDirection.ELEVATOR_UP;
@@ -126,7 +127,7 @@ public class Elevator {
             rotations = level[currentLevel];
             // TODO:
             // Comment out this next line.  We only set the postion of the leader (left) motor
-            setPosition(rClimber, rightPositionControl, rotations);
+            //setPosition(rClimber, rightPositionControl, rotations);
             setPosition(lClimber, leftPositionControl, -rotations);
             direction = ElevatorDirection.ELEVATOR_DOWN;
             System.out.println("down");
