@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand(m_operatorController);
    // m_robotContainer.setLEDs();
 
     if (m_autonomousCommand != null) {
