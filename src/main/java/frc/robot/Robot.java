@@ -15,15 +15,13 @@ import frc.robot.CoralShooter.CoralShooterConstants;
 import frc.robot.commands.Elevator;
 import frc.robot.Vision.Limelight;
 import frc.robot.PowerDistribution.PowerDistributionHub;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.RobotContainer;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+//import frc.robot.RobotContainer;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -33,23 +31,23 @@ public class Robot extends TimedRobot {
   public final Limelight limelightContainer;
   public final PowerDistributionHub powerDistributionHub;
  
-  private int previousPOV = -1;
+  //private int previousPOV = -1;
 
-  private final XboxController joystick = new XboxController(0); 
+  //private final XboxController joystick = new XboxController(0); 
   public final CommandXboxController xboxController = new CommandXboxController(0);
 
   private  Elevator elevator;
-  // initalize serial for Arduino LED subsystem communication 
-  private SerialPort serial;
+
 
   public Robot() {
     
     m_robotContainer = new RobotContainer();
     m_operatorController = new CoralShooterContainer();
     limelightContainer = new Limelight();
-    elevator = new Elevator(xboxController);
-    elevator.ClimbWithFalcon();
+     elevator = new Elevator(xboxController);
+     elevator.ClimbWithFalcon();
     powerDistributionHub = new PowerDistributionHub();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
@@ -57,24 +55,28 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run(); 
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
   public void disabledInit() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+  //  m_robotContainer.setLEDs();
   }
 
   @Override
   public void disabledPeriodic() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+  //  m_robotContainer.setLEDs();
   }
 
   @Override
   public void disabledExit() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
@@ -82,6 +84,7 @@ public class Robot extends TimedRobot {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+   // m_robotContainer.setLEDs();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -92,6 +95,7 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
@@ -105,15 +109,7 @@ public class Robot extends TimedRobot {
 
     m_robotContainer.kSpeedDiv = 4.0;
 
-    //serial = new SerialPort(9600, Port.kUSB);
-
-    //SerialPort serial = new SerialPort(9600, SerialPort.Port.kMXP);
-    
-    //int pattern = 2;
-
-    //serial.writeString(pattern + "\n");
-
-    //serial.writeString(Integer.toString(pattern) + "\n" );
+    //m_robotContainer.setLEDs();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
@@ -123,11 +119,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    //powerDistributionHub.putSmartdashboardPower();
-    //m_robotContainer.putSmartdashboardRobotContainer();
+    powerDistributionHub.putSmartdashboardPower();
+    m_robotContainer.putSmartdashboardRobotContainer();
+    m_robotContainer.quickJoystickSpeedChange();
   
 
     elevator.elevatorPeriodic();
+
+    //m_robotContainer.setLEDs();
 
 
     //boolean fast = 

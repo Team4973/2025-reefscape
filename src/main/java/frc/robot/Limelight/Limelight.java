@@ -1,6 +1,7 @@
 package frc.robot.Limelight;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 import java.lang.reflect.Constructor;
 
@@ -15,25 +16,21 @@ public class Limelight {
     DoubleSubscriber txSub = nt.getDoubleTopic("/limelight/tx").subscribe(0.0);
     DoubleSubscriber tySub = nt.getDoubleTopic("/limelight/ty").subscribe(0.0);
     DoubleSubscriber taSub = nt.getDoubleTopic("/limelight/ta").subscribe(0.0);
-    DoubleSubscriber tidSub = nt.getDoubleTopic("/limelight/tid").subscribe(0.0);
 
     public void getLimelightValues() {
         double tx = txSub.get();
         double ty = tySub.get();
         double ta = taSub.get();
-        double tid = tidSub.get();
         System.out.println("ty =" + ty + "tx =" + tx + "ta" + ta);
-        if (tx > 0 && tid == 1 // REPLACE WITH CORAL TAG ID
-        ) {
-            System.out.println("");
+        if (tx > 0) {
         } 
-        else if(tx < 0 && tid == 1 //  REPLACE WITH CORAL TAG ID
-                ) {
+        else if(tx < 0){
             System.out.println("");
         } 
         else {
             System.out.println("");
         }
+        
     }  
         
 }

@@ -26,7 +26,6 @@ import frc.robot.Vision.Limelight;
 
 public class RobotContainer {
      
-    
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
@@ -37,9 +36,6 @@ public class RobotContainer {
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
-     private final TalonFX lClimber = new TalonFX(31); // left climber 
-     private final TalonFX rClimber = new TalonFX(30); // right climber
-
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private Limelight limelightContainer = new Limelight();
@@ -49,8 +45,9 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
-    // drive-base speed master control
-    public double kSpeedDiv = 3.0; // 3.0 is our prefered speed for semi-fast drive-base movements
+    public double kSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.56); // 3.5 is our prefered speed for somewhat fast movements
+
+
 
     public RobotContainer() {
         configureBindings();
@@ -107,6 +104,69 @@ public class RobotContainer {
     }
 
     public void putSmartdashboardRobotContainer() {
-        SmartDashboard.putNumber("Input Speed Div", kSpeedDiv);
+        //SmartDashboard.putNumber("Input Speed Div", kSpeedDiv);
+        //SmartDashboard.getNumber("Input Speed Div", kSpeedDiv);
+        //SmartDashboard.setDefaultNumber("Input Speed Div", kSpeedDiv);
+    }
+
+    public void setLEDs() {
+      
+     // serial = new SerialPort(9600, Port.kUSB1);
+
+      //serial.writeString("1\n");
+
+     // System.out.println("LED code called");
+    }
+
+    public void quickJoystickSpeedChange() {
+
+        if (kSpeedDiv <= 1.0) {
+            joystick.b().onTrue(
+                new InstantCommand(() -> {
+                    kSpeedDiv -= 0.6; // increase drive-base TeleOp drive speed  
+                })
+            );
+
+            joystick.leftBumper().onTrue(
+                new InstantCommand(() -> {
+                    kSpeedDiv += 0.6; // decrease drive-base TeleOp drive speed  
+                })
+            );
+
+        } else if (kSpeedDiv >= 12.0 ) {
+
+            joystick.leftBumper().onTrue(
+                new InstantCommand(() -> {
+                    kSpeedDiv -= 0.6; // increase drive-base TeleOp drive speed  
+                })
+            );
+
+            joystick.rightBumper().onTrue(
+            new InstantCommand(() -> {
+                kSpeedDiv += 0.6; // decrease drive-base TeleOp drive speed 
+            })
+        );
+
+        } else {
+
+            joystick.leftBumper().onTrue(
+            new InstantCommand(() -> {
+                kSpeedDiv -= 0.6; // increase drive-base TeleOp drive speed  
+            })
+        );
+
+        joystick.rightBumper().onTrue(
+            new InstantCommand(() -> {
+                kSpeedDiv += 0.6; // decrease drive-base TeleOP drive speed  
+            })
+        );
+
+        joystick.b().onTrue(
+            new InstantCommand(() -> {
+                kSpeedDiv = 3.56; // reset to default speed  
+            })
+        );
+        }
     }
 }
+
