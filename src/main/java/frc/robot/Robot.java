@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CoralShooter.CoralShooterContainer;
 import frc.robot.CoralShooter.CoralShooterConstants;
+import frc.robot.commands.Climber;
 import frc.robot.commands.Elevator;
 import frc.robot.Vision.Limelight;
 import frc.robot.PowerDistribution.PowerDistributionHub;
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
   public final CoralShooterContainer m_operatorController;
   public final Limelight limelightContainer;
   public final PowerDistributionHub powerDistributionHub;
+  public final Climber Climber;
  
   //private int previousPOV = -1;
 
@@ -47,6 +49,7 @@ public class Robot extends TimedRobot {
      elevator = new Elevator(xboxController);
      elevator.ClimbWithFalcon();
     powerDistributionHub = new PowerDistributionHub();
+    Climber = new Climber(xboxController);
    // m_robotContainer.setLEDs();
    // m_robotContainer.setLEDs();
   }
