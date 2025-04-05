@@ -50,7 +50,9 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
-    public double kSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.5); // 3.5 is our prefered speed for somewhat fast movements
+    public double kSpeedDiv = 3.56;
+
+    //public double kSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.5); // 3.5 is our prefered speed for somewhat fast movements
 
     private SerialPort serial;
 

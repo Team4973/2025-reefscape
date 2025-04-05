@@ -121,8 +121,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    powerDistributionHub.putSmartdashboardPower();
-    m_robotContainer.putSmartdashboardRobotContainer();
+    //powerDistributionHub.putSmartdashboardPower();
+    //m_robotContainer.putSmartdashboardRobotContainer();
   
 
     elevator.elevatorPeriodic();
