@@ -23,7 +23,7 @@ import com.ctre.phoenix6.Utils;
 
 public class Elevator {
 
-  double level[] = { 0.0, 3.3, 9.5, 22.5, 42.0 };
+  double level[] = { 0.0, 3.0, 9.5, 22.0, 42.0 }; // elevator height levels
   int leftClimberID = 31;
   int rightClimberID = 30;
 

@@ -50,6 +50,7 @@ public class Robot extends TimedRobot {
      elevator.ClimbWithFalcon();
     powerDistributionHub = new PowerDistributionHub();
    // m_robotContainer.setLEDs();
+
   }
 
   @Override
@@ -109,7 +110,7 @@ public class Robot extends TimedRobot {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
 
-    m_robotContainer.kSpeedDiv = 4.0;
+    m_robotContainer.kSpeedDiv = 3;
 
     //m_robotContainer.setLEDs();
 
