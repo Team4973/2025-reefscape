@@ -53,6 +53,14 @@ public class CoralShooterContainer {
         );
   }
 
+  public void shootCoral() {
+    m_launcher.launchCoral(LauncherConstants.kAutoLauncherSpeed);
+  }
+
+  public void stop() {
+    m_launcher.stop();
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

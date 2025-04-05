@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
      elevator.ClimbWithFalcon();
     powerDistributionHub = new PowerDistributionHub();
    // m_robotContainer.setLEDs();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
@@ -56,12 +57,14 @@ public class Robot extends TimedRobot {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
    // m_robotContainer.setLEDs();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
   public void disabledInit() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+  //  m_robotContainer.setLEDs();
   //  m_robotContainer.setLEDs();
   }
 
@@ -70,12 +73,14 @@ public class Robot extends TimedRobot {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
   //  m_robotContainer.setLEDs();
+  //  m_robotContainer.setLEDs();
   }
 
   @Override
   public void disabledExit() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+   // m_robotContainer.setLEDs();
    // m_robotContainer.setLEDs();
   }
 
@@ -96,6 +101,7 @@ public class Robot extends TimedRobot {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
    // m_robotContainer.setLEDs();
+   // m_robotContainer.setLEDs();
   }
 
   @Override
@@ -109,6 +115,7 @@ public class Robot extends TimedRobot {
 
     m_robotContainer.kSpeedDiv = 4.0;
 
+    //m_robotContainer.setLEDs();
     //m_robotContainer.setLEDs();
 
     if (m_autonomousCommand != null) {
@@ -125,6 +132,8 @@ public class Robot extends TimedRobot {
   
 
     elevator.elevatorPeriodic();
+
+    //m_robotContainer.setLEDs();
 
     //m_robotContainer.setLEDs();
 

@@ -15,12 +15,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.CoralShooter.CoralShooterContainer;
+
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import frc.robot.Vision.LimelightSwerve;
 import frc.robot.Vision.Limelight;
 
@@ -45,9 +50,9 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
-    public double kSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.56); // 3.5 is our prefered speed for somewhat fast movements
+    public double kSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.5); // 3.5 is our prefered speed for somewhat fast movements
 
-
+    private SerialPort serial;
 
     public RobotContainer() {
         configureBindings();
@@ -83,6 +88,7 @@ public class RobotContainer {
         // reset the field-centric heading on left bumper press
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
   }
     
     
@@ -92,15 +98,23 @@ public class RobotContainer {
     pigeon.reset();
   }
 
-    public Command getAutonomousCommand() {
+    public Command getAutonomousCommand(CoralShooterContainer launcher) {
         //return Commands.print("No autonomous command configured");
-        return runauto1;
+        //return runauto1;
         // SequentialCommandGroup auto_commands = new SequentialCommandGroup(
         //     Commands.print("Got Here!"),
         //     new PathPlannerAuto("Test")
         // );
         // return auto_commands;
         //return new PathPlannerAuto("Test");
+
+        SequentialCommandGroup auto_commands = new SequentialCommandGroup(
+          runauto1,
+          new InstantCommand(() -> {launcher.shootCoral();}),
+          new WaitCommand(1.0),
+          new InstantCommand(() -> {launcher.stop();})
+        );
+        return auto_commands;
     }
 
     public void putSmartdashboardRobotContainer() {
