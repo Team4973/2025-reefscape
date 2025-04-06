@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
 
-    m_robotContainer.kSpeedDiv = 3;
+    m_robotContainer.kDriveSpeedDiv = 3;
 
     //m_robotContainer.setLEDs();
 
@@ -164,6 +164,8 @@ public class Robot extends TimedRobot {
     System.out.println("Distance = " + distance);
     */
      //SmartDashboard.putNumber("voltage", getVoltage());
+
+     m_robotContainer.quickJoystickSpeedChange();
   }
 
   @Override

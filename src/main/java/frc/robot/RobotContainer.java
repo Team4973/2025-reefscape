@@ -50,9 +50,9 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
-    public double kSpeedDiv = 3.56;
+    public double kDriveSpeedDiv = 3.0; // default (3.0) TeleOp drive speed
 
-    //public double kSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.5); // 3.5 is our prefered speed for somewhat fast movements
+    //public double kDriveSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.5); // 3.5 is our prefered speed for somewhat fast movements
 
     private SerialPort serial;
 
@@ -66,8 +66,8 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed/kSpeedDiv) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed/kSpeedDiv) // Drive left with negative X (left)
+                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed/kDriveSpeedDiv) // Drive forward with negative Y (forward)
+                    .withVelocityY(-joystick.getLeftX() * MaxSpeed/kDriveSpeedDiv) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
@@ -117,9 +117,9 @@ public class RobotContainer {
     }
 
     public void putSmartdashboardRobotContainer() {
-        //SmartDashboard.putNumber("Input Speed Div", kSpeedDiv);
-        //SmartDashboard.getNumber("Input Speed Div", kSpeedDiv);
-        //SmartDashboard.setDefaultNumber("Input Speed Div", kSpeedDiv);
+        //SmartDashboard.putNumber("Input Speed Div", kDriveSpeedDiv);
+        //SmartDashboard.getNumber("Input Speed Div", kDriveSpeedDiv);
+        //SmartDashboard.setDefaultNumber("Input Speed Div", kDriveSpeedDiv);
     }
 
     public void setLEDs() {
@@ -130,7 +130,56 @@ public class RobotContainer {
       System.out.println("LED code called");
     }
 
-    //public void quickSpeedControl() {
+    public void quickJoystickSpeedChange() { // allow driver to quickly change the robot drive speed while in TeleOp w/ no redeploy
 
-    //}
+        // in this implementation the value divides the joystick input, with 1.0 being the fastest and 12.0 being slowest
+
+        if (kDriveSpeedDiv <= 1.0) { // only allow decreasing speed when the value reachs 1.0
+            joystick.b().onTrue(
+                new InstantCommand(() -> {
+                    kDriveSpeedDiv = 3.0; // reset to default speed
+                })
+            );
+
+            joystick.leftBumper().onTrue(
+                new InstantCommand(() -> {
+                    kDriveSpeedDiv += 0.6; // decrease drive-base TeleOp drive speed  
+                })
+            );
+
+        } else if (kDriveSpeedDiv >= 12.0 ) { // if above 12.0 only allow increasing drive speed
+
+            joystick.leftBumper().onTrue(
+                new InstantCommand(() -> {
+                    kDriveSpeedDiv -= 0.6; // increase drive-base TeleOp drive speed  
+                })
+            );
+
+            joystick.b().onTrue(
+            new InstantCommand(() -> {
+                kDriveSpeedDiv = 3.0; // decrease drive-base TeleOp drive speed 
+            })
+        );
+
+        } else { // when divide values are not above/below limits
+
+            joystick.leftBumper().onTrue(
+            new InstantCommand(() -> {
+                kDriveSpeedDiv -= 0.6; // increase drive-base TeleOp drive speed  
+            })
+        );
+
+        joystick.rightBumper().onTrue(
+            new InstantCommand(() -> {
+                kDriveSpeedDiv += 0.6; // decrease drive-base TeleOP drive speed  
+            })
+        );
+
+        joystick.b().onTrue(
+            new InstantCommand(() -> {
+                kDriveSpeedDiv = 3.0; // reset to default speed  
+            })
+        );
+        }
+    }
 }
