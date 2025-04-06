@@ -15,6 +15,7 @@ import frc.robot.CoralShooter.CoralShooterConstants;
 import frc.robot.commands.Elevator;
 import frc.robot.Vision.Limelight;
 import frc.robot.Vision.LimelightSwerve;
+import frc.robot.commands.Climber;
 import frc.robot.PowerDistribution.PowerDistributionHub;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -42,6 +43,8 @@ public class Robot extends TimedRobot {
 
   public Robot() {
     
+    Climber climber = new Climber(xboxController);
+    climber.ClimbWithFalcon();
     m_robotContainer = new RobotContainer();
     m_operatorController = new CoralShooterContainer();
     limelightContainer = new Limelight();

@@ -30,7 +30,7 @@ public class Climber {
 
     climberOperatorController.povUp().onTrue( // move right motor clockwise on right trigger
       new InstantCommand(() -> {
-        climber.set(0.5);
+        climber.set(0.1);
       })
     );
 
@@ -42,7 +42,7 @@ public class Climber {
 
     climberOperatorController.povDown().onTrue( // move right motor counter-clockwise on right bumper
       new InstantCommand(() -> {
-        climber.set(-0.5);
+        climber.set(-0.1);
       })
     );
 
