@@ -10,11 +10,13 @@ import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+/* 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+*/
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -87,6 +89,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             this
         )
     );
+
+    /* 
 
     private void configurePathPlanner() {
         double driveBaseRadius = 0;
@@ -183,7 +187,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
        SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, modules);
-        configurePathPlanner();
+        //configurePathPlanner();
         if (Utils.isSimulation()) {
             startSimThread();
         }
@@ -208,7 +212,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, odometryUpdateFrequency, modules);
-        configurePathPlanner();
+        //configurePathPlanner();
         if (Utils.isSimulation()) {
             startSimThread();
         }
@@ -241,7 +245,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, odometryUpdateFrequency, odometryStandardDeviation, visionStandardDeviation, modules);
-        configurePathPlanner();
+        //configurePathPlanner();
         if (Utils.isSimulation()) {
             startSimThread();
         }

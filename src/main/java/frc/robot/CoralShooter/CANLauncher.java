@@ -12,7 +12,7 @@ import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kLa
 import static frc.robot.CoralShooter.CoralShooterConstants.LauncherConstants.kLeftLauncherID;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.revrobotics.spark.config.SparkMaxConfig;
+//import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;

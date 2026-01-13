@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
 
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  //private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
   public final CoralShooterContainer m_operatorController;
@@ -89,12 +89,15 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     powerDistributionHub.putSmartdashboardPower();
     m_robotContainer.putSmartdashboardRobotContainer();
+   /* 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand(m_operatorController);
    // m_robotContainer.setLEDs();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+      
     }
+      */
   }
 
   @Override
@@ -117,9 +120,11 @@ public class Robot extends TimedRobot {
 
     //m_robotContainer.setLEDs();
 
+    /* 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+      */
   }
 
   @Override
@@ -181,4 +186,5 @@ public class Robot extends TimedRobot {
 
   @Override
   public void simulationPeriodic() {}
+
 }

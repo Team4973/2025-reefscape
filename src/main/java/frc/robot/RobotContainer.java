@@ -40,17 +40,14 @@ public class RobotContainer {
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
-     private final TalonFX lClimber = new TalonFX(31); // left climber 
-     private final TalonFX rClimber = new TalonFX(30); // right climber
-
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     public final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    private Command runauto1 = drivetrain.getAutoPath("Auto4");
+   // private Command runauto1 = drivetrain.getAutoPath("Auto4");
 
-    public double kDriveSpeedDiv = 3.0; // default (3.0) TeleOp drive speed
+    public double kDriveSpeedDiv = 16.0; // default (3.0) TeleOp drive speed
 
     //public double kDriveSpeedDiv = SmartDashboard.getNumber("Input Speed Div", 3.5); // 3.5 is our prefered speed for somewhat fast movements
 
@@ -97,7 +94,7 @@ public class RobotContainer {
     pigeon.reset();
   }
 
-    public Command getAutonomousCommand(CoralShooterContainer launcher) {
+    //public Command getAutonomousCommand(CoralShooterContainer launcher) {
         //return Commands.print("No autonomous command configured");
         //return runauto1;
         // SequentialCommandGroup auto_commands = new SequentialCommandGroup(
@@ -107,6 +104,7 @@ public class RobotContainer {
         // return auto_commands;
         //return new PathPlannerAuto("Test");
 
+        /* 
         SequentialCommandGroup auto_commands = new SequentialCommandGroup(
           runauto1,
           new InstantCommand(() -> {launcher.shootCoral();}),
@@ -114,7 +112,8 @@ public class RobotContainer {
           new InstantCommand(() -> {launcher.stop();})
         );
         return auto_commands;
-    }
+        */
+    //}
 
     public void putSmartdashboardRobotContainer() {
         //SmartDashboard.putNumber("Input Speed Div", kDriveSpeedDiv);

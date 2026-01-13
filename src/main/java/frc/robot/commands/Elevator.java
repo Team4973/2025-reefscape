@@ -88,7 +88,7 @@ public class Elevator {
     // of the left climber.
 
     // TODO: Uncomment this line
-     rClimber.setControl(new Follower(leftClimberID, true));
+     //rClimber.setControl(new Follower(leftClimberID, true));
 
     // TODO: comment out this next line
     //setMotorConfiguration(rClimber);

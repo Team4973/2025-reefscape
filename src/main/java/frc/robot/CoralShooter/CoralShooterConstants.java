@@ -22,7 +22,7 @@ public final class CoralShooterConstants {
 
   public static class LauncherConstants {
     // PWM ports/CAN IDs for motor controllers
-    public static final int kRightLauncherID = 22;
+    public static final int kRightLauncherID = 30;
     public static final int kLeftLauncherID = 21;
 
     // Current limit for launcher and feed wheels
