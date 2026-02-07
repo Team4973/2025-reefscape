@@ -21,7 +21,7 @@ class Limelight(Subsystem):
         self._tid_sub = nt.getDoubleTopic("/limelight/tid").subscribe(0.0)
 
         # Force LEDs off (replaces LimelightHelpers.setLEDMode_ForceOff)
-        nt.getTable("limelight").getEntry("ledMode").setNumber(1)
+        nt.getTable("limelight").getEntry("ledMode").setDouble(1)
 
     @property
     def tx(self) -> float:

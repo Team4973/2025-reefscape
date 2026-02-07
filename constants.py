@@ -240,7 +240,7 @@ def _make_module(
     mod.drive_motor_closed_loop_output = DRIVE_CLOSED_LOOP_OUTPUT
 
     mod.slip_current = SLIP_CURRENT
-    mod.speed_at_12_volts = SPEED_AT_12V
+    mod.speed_at12_volts = SPEED_AT_12V
 
     mod.drive_motor_gear_ratio = DRIVE_GEAR_RATIO
     mod.steer_motor_gear_ratio = STEER_GEAR_RATIO

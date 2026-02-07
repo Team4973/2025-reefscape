@@ -9,12 +9,13 @@ from typing import Callable
 
 from commands2 import Command, Subsystem
 from phoenix6 import utils
+from phoenix6.hardware import CANcoder, TalonFX
 from phoenix6.swerve import (
     SwerveDrivetrain,
     SwerveDrivetrainConstants,
     SwerveModuleConstants,
-    SwerveRequest,
 )
+from phoenix6.swerve.requests import SwerveRequest
 from wpilib import DriverStation, Notifier, RobotController
 from wpimath.geometry import Rotation2d
 
@@ -35,7 +36,9 @@ class CommandSwerveDrivetrain(Subsystem):
     ):
         super().__init__()
 
-        self._drivetrain = SwerveDrivetrain(drivetrain_constants, *modules)
+        self._drivetrain = SwerveDrivetrain(
+            TalonFX, TalonFX, CANcoder, drivetrain_constants, list(modules)
+        )
         self._has_applied_perspective = False
         self._sim_notifier: Notifier | None = None
         self._last_sim_time = 0.0

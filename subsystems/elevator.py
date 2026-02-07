@@ -6,8 +6,10 @@ the opposite direction. Five preset height levels controlled by Y (up) and A (do
 """
 
 from commands2 import Subsystem
+from phoenix6.configs import TalonFXConfiguration
 from phoenix6.controls import Follower, PositionDutyCycle
 from phoenix6.hardware import TalonFX
+from phoenix6.signals import MotorAlignmentValue
 
 from constants import (
     ELEVATOR_LEFT_ID,
@@ -26,13 +28,13 @@ class Elevator(Subsystem):
         self.follower = TalonFX(ELEVATOR_RIGHT_ID)
 
         # Configure leader PID
-        config = self.leader.configurator.refresh(self.leader.configurator.create_config())
+        config = TalonFXConfiguration()
         config.slot0 = ELEVATOR_PID
         self.leader.configurator.apply(config)
         self.leader.set_position(0)
 
         # Set right motor as follower (opposed direction)
-        self.follower.set_control(Follower(ELEVATOR_LEFT_ID, oppose_master_direction=True))
+        self.follower.set_control(Follower(ELEVATOR_LEFT_ID, MotorAlignmentValue.OPPOSED))
 
         self._position_control = PositionDutyCycle(0)
         self._current_level = 0

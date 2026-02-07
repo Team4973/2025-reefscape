@@ -6,7 +6,7 @@ Mechanism2d visualizations for each module.
 """
 
 from ntcore import NetworkTableInstance
-from phoenix6 import signal_logger
+from phoenix6.signal_logger import SignalLogger
 from phoenix6.swerve import SwerveDrivetrain
 from wpilib import Color, Color8Bit, Mechanism2d, SmartDashboard
 from wpimath.geometry import Pose2d
@@ -16,7 +16,7 @@ from wpimath.kinematics import ChassisSpeeds, SwerveModulePosition, SwerveModule
 class Telemetry:
     def __init__(self, max_speed: float):
         self._max_speed = max_speed
-        signal_logger.start()
+        SignalLogger.start()
 
         nt = NetworkTableInstance.getDefault()
 
@@ -68,7 +68,7 @@ class Telemetry:
         # Log to SignalLogger
         pose = state.pose
         pose_array = [pose.X(), pose.Y(), pose.rotation().degrees()]
-        signal_logger.write_double_array("DriveState/Pose", pose_array)
+        SignalLogger.write_double_array("DriveState/Pose", pose_array)
 
         states_array = []
         targets_array = []
@@ -78,9 +78,9 @@ class Telemetry:
             states_array.extend([ms.angle.radians(), ms.speed])
             targets_array.extend([mt.angle.radians(), mt.speed])
 
-        signal_logger.write_double_array("DriveState/ModuleStates", states_array)
-        signal_logger.write_double_array("DriveState/ModuleTargets", targets_array)
-        signal_logger.write_double("DriveState/OdometryPeriod", state.odometry_period)
+        SignalLogger.write_double_array("DriveState/ModuleStates", states_array)
+        SignalLogger.write_double_array("DriveState/ModuleTargets", targets_array)
+        SignalLogger.write_double("DriveState/OdometryPeriod", state.odometry_period)
 
         # Field2d
         self._field_type_pub.set("Field2d")
@@ -89,7 +89,8 @@ class Telemetry:
         # Mechanism2d visualization
         for i in range(4):
             ms = state.module_states[i]
-            self._speeds[i].setAngle(ms.angle)
-            self._directions[i].setAngle(ms.angle)
+            angle_deg = ms.angle.degrees()
+            self._speeds[i].setAngle(angle_deg)
+            self._directions[i].setAngle(angle_deg)
             self._speeds[i].setLength(ms.speed / (2 * self._max_speed))
             SmartDashboard.putData(f"Module {i}", self._mechanisms[i])
