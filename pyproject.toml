@@ -1,0 +1,44 @@
+[project]
+name = "reefscape2025"
+version = "1.0.0"
+description = "FRC Team 4973 Reefscape 2025 - Python/RobotPy rewrite"
+requires-python = ">=3.12"
+
+# Dependencies for uv/pip
+dependencies = [
+    "robotpy[commands2,sim]",
+    "phoenix6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+]
+
+[tool.robotpy]
+# Team number for deploy/sync commands
+team = 4973
+
+# RobotPy version - check https://robotpy.readthedocs.io for latest
+robotpy_version = "2026.2.1"
+
+# Robot class entry point
+robot_class = "robot.Robot"
+
+# Additional RobotPy components (renamed from robotpy_extras in 2026)
+components = [
+    "commands2",  # Command-based framework
+]
+
+# Third-party vendor libraries
+requires = [
+    "phoenix6",  # CTRE TalonFX motor controllers
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]  # Errors, pyflakes, warnings, isort
+ignore = ["E501"]  # Line length handled separately

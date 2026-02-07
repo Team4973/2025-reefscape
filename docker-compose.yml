@@ -1,0 +1,19 @@
+# Docker Compose for Reefscape Python development
+# Usage:
+#   docker compose build              # Build the image (first time only)
+#   docker compose run --rm robotpy sim     # Run simulation
+#   docker compose run --rm robotpy deploy  # Deploy to robot
+
+services:
+  robotpy:
+    build: .
+    volumes:
+      # Mount current directory so code changes are reflected immediately
+      - .:/home/robotpy/robot
+    # Allow GUI access for simulation (macOS/Linux)
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+    # For macOS XQuartz support
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    entrypoint: ["python3", "-m", "robotpy"]
